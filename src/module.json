@@ -1,0 +1,58 @@
+{
+    "name": "foundryvtt-coloredeffects",
+    "title": "Colored Effects",
+    "description": "Adds settings to control the display of status and overlay icons on tokens",
+    "author": "Sean Wellington",
+    "version": "0.0.8",
+    "type": "module",
+    "socket": true,
+    "includes": [
+      "./assets/**",
+      "./lang/**",
+      "./scripts/**",
+      "./styles/**",
+      "./templates/**",
+      "./module.json",
+      "./README.md",
+      "./icons/**",
+      "./packs/**"
+    ],
+    "media": [
+      {
+        "type": "icon",
+        "location": ""
+      },
+      {
+        "type": "cover",
+        "location": ""
+      },
+      {
+        "type": "screenshot",
+        "location": ""
+      }
+    ],
+    "languages": [
+      {
+        "lang": "en",
+        "name": "English",
+        "path": "lang/en.json"
+      }
+    ],
+    "scripts": [
+      "./module/libs/pixi-filters.js",
+      "./module/libs/filters/pixi-filters.js",
+      "./module/libs/libWrapper/shim.js"
+    ],
+    "esmodules": [
+      "foundryvtt-coloredeffects.js"
+    ],
+    "styles": [
+
+    ],
+    "url": "https://github.com/sean8223/coloredeffects",
+    "manifest": "https://raw.githubusercontent.com/sean8223/coloredeffects/master/src/module.json",
+    "download": "https://github.com/sean8223/coloredeffects/master/package/coloredeffects.zip",
+    "minimumCoreVersion": "0.7.6",
+    "compatibleCoreVersion": "0.7.9",
+    "changelog": "https://raw.githubusercontent.com/sean8223/coloredeffects/master/changelog.md"
+}

@@ -1,0 +1,18 @@
+{
+    "foundryvtt-coloredeffects.overlayColor.name": "Overlay Icon Color",
+    "foundryvtt-coloredeffects.overlayColor.hint": "Color for overlay icons as a hex string (rrggbb)",
+    "foundryvtt-coloredeffects.overlayAlpha.name": "Overlay Icon Opacity",
+    "foundryvtt-coloredeffects.overlayAlpha.hint": "Opacity of overlay icons (0 = fully transparent, 1 = fully opaque)",
+    "foundryvtt-coloredeffects.statusBackgroundColor.name": "Status Icon Background Color",
+    "foundryvtt-coloredeffects.statusBackgroundColor.hint": "Background color of status icons as a hex string (rrggbb)",
+    "foundryvtt-coloredeffects.statusBackgroundAlpha.name": "Status Icon Background Opacity",
+    "foundryvtt-coloredeffects.statusBackgroundAlpha.hint": "Opacity of status icon background (0 = fully transparent, 1 = fully opaque)",
+    "foundryvtt-coloredeffects.statusBorderColor.name": "Status Icon Border Color",
+    "foundryvtt-coloredeffects.statusBorderColor.hint": "Color of status icon border as a hex string (rrggbb)",
+    "foundryvtt-coloredeffects.statusBorderWidth.name": "Status Icon Border Width",
+    "foundryvtt-coloredeffects.statusBorderWidth.hint": "Width in pixels of status icon border",
+    "foundryvtt-coloredeffects.statusColor.name": "Status Icon Color",
+    "foundryvtt-coloredeffects.statusColor.hint": "Color for status icons as a hex string (rrggbb)",
+    "foundryvtt-coloredeffects.statusAlpha.name": "Status Icon Opacity",
+    "foundryvtt-coloredeffects.statusAlpha.hint": "Opacity of status icons (0 = fully transparent, 1 = fully opaque)"
+}
