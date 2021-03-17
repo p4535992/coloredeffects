@@ -5,16 +5,16 @@ export const MODULE_NAME = 'foundryvtt-coloredeffects';
 export const registerSettings = function () {
 
   game.settings.register(MODULE_NAME, "overlayColor", {
-    name: game.i18n.localize( "foundryvtt-coloredeffects.overlayColor.name"),
-    hint: game.i18n.localize( "foundryvtt-coloredeffects.overlayColor.hint"),
+    name: i18n(MODULE_NAME+".overlayColor.name"),
+    hint: i18n(MODULE_NAME+".overlayColor.hint"),
     scope: "world",
     config: true,
     default: "ffffff",
     type: String
   });
   game.settings.register(MODULE_NAME, "overlayAlpha", {
-    name: game.i18n.localize( "foundryvtt-coloredeffects.overlayAlpha.name"),
-    hint: game.i18n.localize( "foundryvtt-coloredeffects.overlayAlpha.hint"),
+    name: i18n(MODULE_NAME+".overlayAlpha.name"),
+    hint: i18n(MODULE_NAME+".overlayAlpha.hint"),
     scope: "world",
     config: true,
     type: Number,
@@ -26,16 +26,16 @@ export const registerSettings = function () {
     default: 0.8
   });
   game.settings.register(MODULE_NAME, "statusBackgroundColor", {
-    name: game.i18n.localize( "foundryvtt-coloredeffects.statusBackgroundColor.name"),
-    hint: game.i18n.localize( "foundryvtt-coloredeffects.statusBackgroundColor.hint"),
+    name: i18n(MODULE_NAME+".statusBackgroundColor.name"),
+    hint: i18n(MODULE_NAME+".statusBackgroundColor.hint"),
     scope: "world",
     config: true,
     default: "000000",
     type: String
   });
   game.settings.register(MODULE_NAME, "statusBackgroundAlpha", {
-    name: game.i18n.localize( "foundryvtt-coloredeffects.statusBackgroundAlpha.name"),
-    hint: game.i18n.localize( "foundryvtt-coloredeffects.statusBackgroundAlpha.hint"),
+    name: i18n(MODULE_NAME+".statusBackgroundAlpha.name"),
+    hint: i18n(MODULE_NAME+".statusBackgroundAlpha.hint"),
     scope: "world",
     config: true,
     type: Number,
@@ -47,32 +47,32 @@ export const registerSettings = function () {
     default: 0.4
   });
   game.settings.register(MODULE_NAME, "statusBorderColor", {
-    name: game.i18n.localize( "foundryvtt-coloredeffects.statusBorderColor.name"),
-    hint: game.i18n.localize( "foundryvtt-coloredeffects.statusBorderColor.hint"),
+    name: i18n(MODULE_NAME+".statusBorderColor.name"),
+    hint: i18n(MODULE_NAME+".statusBorderColor.hint"),
     scope: "world",
     config: true,
     default: "000000",
     type: String
   });
   game.settings.register(MODULE_NAME, "statusBorderWidth", {
-    name: game.i18n.localize( "foundryvtt-coloredeffects.statusBorderWidth.name"),
-    hint: game.i18n.localize( "foundryvtt-coloredeffects.statusBorderWidth.hint"),
+    name: i18n(MODULE_NAME+".statusBorderWidth.name"),
+    hint: i18n(MODULE_NAME+".statusBorderWidth.hint"),
     scope: "world",
     config: true,
     default: 1,
     type: Number
   });
   game.settings.register(MODULE_NAME, "statusColor", {
-    name: game.i18n.localize( "foundryvtt-coloredeffects.statusColor.name"),
-    hint: game.i18n.localize( "foundryvtt-coloredeffects.statusColor.hint"),
+    name: i18n(MODULE_NAME+".statusColor.name"),
+    hint: i18n(MODULE_NAME+".statusColor.hint"),
     scope: "world",
     config: true,
     default: "000000",
     type: String
   });
   game.settings.register(MODULE_NAME, "statusAlpha", {
-    name: game.i18n.localize( "foundryvtt-coloredeffects.statusAlpha.name"),
-    hint: game.i18n.localize( "foundryvtt-coloredeffects.statusAlpha.hint"),
+    name: i18n(MODULE_NAME+".statusAlpha.name"),
+    hint: i18n(MODULE_NAME+".statusAlpha.hint"),
     scope: "world",
     config: true,
     type: Number,
@@ -88,8 +88,8 @@ export const registerSettings = function () {
 // function setup(templateSettings) {
 // 	templateSettings.settings().forEach(setting => {
 // 		let options = {
-// 			name: game.i18n.localize(templateSettings.name()+"."+setting.name+'.Name'),
-// 			hint: game.i18n.localize(`${templateSettings.name()}.${setting.name}.Hint`),
+// 			name: i18n(templateSettings.name()+"."+setting.name+'.Name'),
+// 			hint: i18n(`${templateSettings.name()}.${setting.name}.Hint`),
 // 			scope: setting.scope,
 // 			config: true,
 // 			default: setting.default,

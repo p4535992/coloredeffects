@@ -4,14 +4,7 @@ import {libWrapper} from './libs/shim.js'
 
 export let readyHooks = async () => {
 
-  Hooks.on("closeSettingsConfig", () => {
-
-    let ownedTokens = canvas.getLayer("TokenLayer").ownedTokens;
-    for (let t of ownedTokens) {
-      t.drawEffects();
-    }
-
-  });
+  Hooks.on("closeSettingsConfig",  closeSettingsConfigHandler);
 
 }
 
@@ -20,13 +13,20 @@ export let initHooks = () => {
 
   // setup all the hooks
 
-  libWrapper.register(MODULE_NAME, 'Token.prototype._drawOverlay', drawOverlay, 'WRAPPER');
-  libWrapper.register(MODULE_NAME, 'Token.prototype._drawEffect', drawEffect, 'WRAPPER');
+  libWrapper.register(MODULE_NAME, 'Token.prototype._drawOverlay', drawOverlayHandler, 'WRAPPER');
+  libWrapper.register(MODULE_NAME, 'Token.prototype._drawEffect', drawEffectHandler, 'WRAPPER');
 
 }
 
+const closeSettingsConfigHandler = function(){
+  let ownedTokens = canvas.getLayer("TokenLayer").ownedTokens;
+  for (let t of ownedTokens) {
+    t.drawEffects();
+  }
 
-const drawOverlay = async function (wrapped, ...args) {
+}
+
+const drawOverlayHandler = async function (wrapped, ...args) {
   const [src, tint] = args;
   if ( !src ){
     return;
@@ -46,9 +46,10 @@ const drawOverlay = async function (wrapped, ...args) {
     icon.alpha = overlayAlpha;
   }
   this.effects.addChild(icon);
+  return wrapped(...args);
 }
 
-const drawEffect = async function (wrapped, ...args) {
+const drawEffectHandler = async function (wrapped, ...args) {
   const [src, i, bg, w, tint] = args;
   let statusColor = colorStringToHex(game.settings.get(MODULE_NAME, "statusColor"));
   let statusAlpha = game.settings.get(MODULE_NAME, "statusAlpha");
