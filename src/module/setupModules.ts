@@ -1,8 +1,8 @@
-import { debug, error, debugEnabled } from "../foundryvtt-coloredeffects";
-import { log } from "../foundryvtt-coloredeffects";
+import { debug, error, debugEnabled } from "../foundryvtt-tokenseffects";
+import { log } from "../foundryvtt-tokenseffects";
 import { MODULE_NAME } from './settings';
 let modules = {
-              "lib-wrapper": "1.3.5",
+              "lib-wrapper": "0.0.0",
             };
 export let installedModules = new Map();
 

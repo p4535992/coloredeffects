@@ -1,10 +1,30 @@
-import { warn, error, debug, i18n } from "../foundryvtt-coloredeffects";
+import { warn, error, debug, i18n } from "../foundryvtt-tokenseffects";
 import { MODULE_NAME } from "./settings";
 import {libWrapper} from './libs/shim.js'
+//@ts-ignore
+import { CanvasAnimation } from ''; //TODO CHECK OUT PATH
+import { Auras } from "./Auras";
 
 export let readyHooks = async () => {
 
   Hooks.on("closeSettingsConfig",  closeSettingsConfigHandler);
+  if (game.settings.get(MODULE_NAME, "notokenanimEnabled")){
+    CanvasAnimation.animateLinear = (function () {
+      const cached = CanvasAnimation.animateLinear;
+      return function (attributes, options:any = {}) {
+        if (game.settings.get(MODULE_NAME, "notokenanimEnabled")
+          && /Token\.[^.]+\.animateMovement/.test(options.name))
+        {
+          options.duration = 0;
+        }
+
+        return cached.apply(this, arguments);
+      };
+    })();
+  }
+  if (game.settings.get(MODULE_NAME, "aurasEnabled")){
+    Hooks.on('renderTokenConfig', Auras.onConfigRender);
+  }
 
 }
 
@@ -13,8 +33,16 @@ export let initHooks = () => {
 
   // setup all the hooks
 
-  libWrapper.register(MODULE_NAME, 'Token.prototype._drawOverlay', drawOverlayHandler, 'WRAPPER');
-  libWrapper.register(MODULE_NAME, 'Token.prototype._drawEffect', drawEffectHandler, 'WRAPPER');
+  libWrapper.register(MODULE_NAME, 'Token.prototype._drawOverlay', tokenDrawOverlayHandler, 'WRAPPER');
+  libWrapper.register(MODULE_NAME, 'Token.prototype._drawEffect', tokenDrawEffectHandler, 'WRAPPER');
+
+  if (game.settings.get(MODULE_NAME, "aurasEnabled")){
+
+    libWrapper.register(MODULE_NAME, 'Token.prototype.draw', tokenDrawHandler, 'WRAPPER');
+    libWrapper.register(MODULE_NAME, 'Token.prototype.drawAuras', tokenDrawAurasHandler, 'WRAPPER');
+    libWrapper.register(MODULE_NAME, 'Token.prototype._onUpdate', tokenOnUpdateHandler, 'WRAPPER');
+
+  }
 
 }
 
@@ -26,7 +54,7 @@ const closeSettingsConfigHandler = function(){
 
 }
 
-const drawOverlayHandler = async function (wrapped, ...args) {
+const tokenDrawOverlayHandler = async function (wrapped, ...args) {
   const [src, tint] = args;
   if ( !src ){
     return;
@@ -49,7 +77,7 @@ const drawOverlayHandler = async function (wrapped, ...args) {
   return wrapped(...args);
 }
 
-const drawEffectHandler = async function (wrapped, ...args) {
+const tokenDrawEffectHandler = async function (wrapped, ...args) {
   const [src, i, bg, w, tint] = args;
   let statusColor = colorStringToHex(game.settings.get(MODULE_NAME, "statusColor"));
   let statusAlpha = game.settings.get(MODULE_NAME, "statusAlpha");
@@ -72,4 +100,77 @@ const drawEffectHandler = async function (wrapped, ...args) {
   bg.drawRoundedRect(icon.x + 1, icon.y + 1, w - 2, w - 2, 2);
   this.effects.addChild(icon);
   return wrapped(...args);
+}
+
+const tokenDrawHandler = function (wrapped, ...args) {
+	const cached = Token.prototype.draw;
+	return function () {
+		const p = cached.apply(this, arguments);
+		this.auras = this.addChildAt(new PIXI.Container(), 0);
+		this.drawAurasHandler();
+		//return p;
+    return wrapped(...args);
+	};
+}
+
+const tokenDrawAurasHandler = function (wrapped, ...args) {
+	this.auras.removeChildren().forEach(c => c.destroy());
+	const auras = Auras.getAllAuras(this).filter(a => a.distance);
+	if (auras.length) {
+		const gfx = this.auras.addChild(new PIXI.Graphics());
+		const squareGrid = canvas.scene.data.gridType === 1;
+		const dim = canvas.dimensions;
+		const unit = dim.size / dim.distance;
+		const [cx, cy] = [this.w / 2, this.h / 2];
+		const {width, height} = this.data;
+
+		auras.forEach(aura => {
+			let w, h;
+
+			if (aura.square) {
+				w = aura.distance * 2 + (width * dim.distance);
+				h = aura.distance * 2 + (height * dim.distance);
+			} else {
+				[w, h] = [aura.distance, aura.distance];
+
+				if (squareGrid) {
+					w += width * dim.distance / 2;
+					h += height * dim.distance / 2;
+				} else {
+					w += (width - 1) * dim.distance / 2;
+					h += (height - 1) * dim.distance / 2;
+				}
+			}
+
+			w *= unit;
+			h *= unit;
+			gfx.beginFill(colorStringToHex(aura.colour), aura.opacity);
+
+			if (aura.square) {
+				const [x, y] = [cx - w / 2, cy - h / 2];
+				gfx.drawRect(x, y, w, h);
+			} else {
+				gfx.drawEllipse(cx, cy, w, h);
+			}
+
+			gfx.endFill();
+		});
+	}
+  return wrapped(...args);
+};
+
+const tokenOnUpdateHandler = function (wrapped, ...args) {
+	const cached = Token.prototype['_onUpdate'];
+	return function (data) {
+		cached.apply(this, arguments);
+		const aurasUpdated =
+			data.flags && data.flags[MODULE_NAME]
+			&& ['aura1', 'aura2', 'auras']
+				.some(k => typeof data.flags[MODULE_NAME][k] === 'object');
+
+		if (aurasUpdated) {
+			this.drawAuras();
+		}
+    return wrapped(...args);
+	};
 }

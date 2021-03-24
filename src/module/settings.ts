@@ -1,8 +1,35 @@
-import { debug, log, setDebugLevel, warn, i18n } from '../foundryvtt-coloredeffects';
+import { debug, log, setDebugLevel, warn, i18n } from '../foundryvtt-tokenseffects';
 
-export const MODULE_NAME = 'foundryvtt-coloredeffects';
+export const MODULE_NAME = 'foundryvtt-tokeneffects';
 
 export const registerSettings = function () {
+
+  game.settings.register(MODULE_NAME, "coloredEffectsEnabled", {
+		name: i18n(MODULE_NAME+".coloredEffectsEnabled.name"),
+    hint: i18n(MODULE_NAME+".coloredEffectsEnabled.hint"),
+		default: true,
+		type: Boolean,
+		scope: "world",
+		config: true
+	});
+
+  game.settings.register(MODULE_NAME, "notokenanimEnabled", {
+		name: i18n(MODULE_NAME+".notokenanimEnabled.name"),
+    hint: i18n(MODULE_NAME+".notokenanimEnabled.hint"),
+		default: false,
+		type: Boolean,
+		scope: 'client',
+		config: true
+	});
+
+  game.settings.register(MODULE_NAME, "aurasEnabled", {
+		name: i18n(MODULE_NAME+".aurasEnabled.name"),
+    hint: i18n(MODULE_NAME+".aurasEnabled.hint"),
+		default: true,
+		type: Boolean,
+		scope: 'client',
+		config: true
+	});
 
   game.settings.register(MODULE_NAME, "overlayColor", {
     name: i18n(MODULE_NAME+".overlayColor.name"),
@@ -12,6 +39,7 @@ export const registerSettings = function () {
     default: "ffffff",
     type: String
   });
+
   game.settings.register(MODULE_NAME, "overlayAlpha", {
     name: i18n(MODULE_NAME+".overlayAlpha.name"),
     hint: i18n(MODULE_NAME+".overlayAlpha.hint"),
@@ -25,6 +53,7 @@ export const registerSettings = function () {
     },
     default: 0.8
   });
+
   game.settings.register(MODULE_NAME, "statusBackgroundColor", {
     name: i18n(MODULE_NAME+".statusBackgroundColor.name"),
     hint: i18n(MODULE_NAME+".statusBackgroundColor.hint"),
@@ -33,6 +62,7 @@ export const registerSettings = function () {
     default: "000000",
     type: String
   });
+
   game.settings.register(MODULE_NAME, "statusBackgroundAlpha", {
     name: i18n(MODULE_NAME+".statusBackgroundAlpha.name"),
     hint: i18n(MODULE_NAME+".statusBackgroundAlpha.hint"),
@@ -46,6 +76,7 @@ export const registerSettings = function () {
     },
     default: 0.4
   });
+
   game.settings.register(MODULE_NAME, "statusBorderColor", {
     name: i18n(MODULE_NAME+".statusBorderColor.name"),
     hint: i18n(MODULE_NAME+".statusBorderColor.hint"),
@@ -54,6 +85,7 @@ export const registerSettings = function () {
     default: "000000",
     type: String
   });
+
   game.settings.register(MODULE_NAME, "statusBorderWidth", {
     name: i18n(MODULE_NAME+".statusBorderWidth.name"),
     hint: i18n(MODULE_NAME+".statusBorderWidth.hint"),
@@ -70,6 +102,7 @@ export const registerSettings = function () {
     default: "000000",
     type: String
   });
+
   game.settings.register(MODULE_NAME, "statusAlpha", {
     name: i18n(MODULE_NAME+".statusAlpha.name"),
     hint: i18n(MODULE_NAME+".statusAlpha.hint"),
@@ -83,6 +116,7 @@ export const registerSettings = function () {
     },
     default: 1.0
   });
+
 }
 
 // function setup(templateSettings) {

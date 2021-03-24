@@ -1,9 +1,9 @@
 {
-    "name": "foundryvtt-coloredeffects",
-    "title": "Colored Effects",
+    "name": "foundryvtt-tokeneffects",
+    "title": "FoundryVTT Tokens Effects",
     "description": "Adds settings to control the display of status and overlay icons on tokens",
-    "author": "Sean Wellington",
-    "version": "0.0.8",
+    "author": "Sean Wellington, Fyorl, p4535992",
+    "version": "1.0.0",
     "type": "module",
     "socket": true,
     "includes": [
@@ -36,16 +36,24 @@
         "lang": "en",
         "name": "English",
         "path": "lang/en.json"
+      }, {
+        "lang": "pt-BR",
+        "name": "Português (Brasil)",
+        "path": "lang/pt-BR.json"
+      }, {
+        "lang": "de",
+        "name": "Deutsch",
+        "path": "lang/de.json"
       }
     ],
     "scripts": [
       "./module/libs/libWrapper/shim.js"
     ],
     "esmodules": [
-      "foundryvtt-coloredeffects.js"
+      "foundryvtt-tokeneffects.js"
     ],
     "styles": [
-
+      "styles/aura.css"
     ],
     "url": "https://github.com/sean8223/coloredeffects",
     "manifest": "https://raw.githubusercontent.com/sean8223/coloredeffects/master/src/module.json",
