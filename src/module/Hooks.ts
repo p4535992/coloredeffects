@@ -7,7 +7,10 @@ import { Auras } from "./Auras";
 
 export let readyHooks = async () => {
 
-  Hooks.on("closeSettingsConfig",  closeSettingsConfigHandler);
+  if (game.settings.get(MODULE_NAME, "coloredEffectsEnabled")){
+    Hooks.on("closeSettingsConfig",  closeSettingsConfigHandler);
+  }
+
   if (game.settings.get(MODULE_NAME, "notokenanimEnabled")){
     CanvasAnimation.animateLinear = (function () {
       const cached = CanvasAnimation.animateLinear;
@@ -22,6 +25,7 @@ export let readyHooks = async () => {
       };
     })();
   }
+
   if (game.settings.get(MODULE_NAME, "aurasEnabled")){
     Hooks.on('renderTokenConfig', Auras.onConfigRender);
   }
@@ -33,8 +37,12 @@ export let initHooks = () => {
 
   // setup all the hooks
 
-  libWrapper.register(MODULE_NAME, 'Token.prototype._drawOverlay', tokenDrawOverlayHandler, 'WRAPPER');
-  libWrapper.register(MODULE_NAME, 'Token.prototype._drawEffect', tokenDrawEffectHandler, 'WRAPPER');
+  if (game.settings.get(MODULE_NAME, "coloredEffectsEnabled")){
+
+    libWrapper.register(MODULE_NAME, 'Token.prototype._drawOverlay', tokenDrawOverlayHandler, 'WRAPPER');
+    libWrapper.register(MODULE_NAME, 'Token.prototype._drawEffect', tokenDrawEffectHandler, 'WRAPPER');
+
+  }
 
   if (game.settings.get(MODULE_NAME, "aurasEnabled")){
 
