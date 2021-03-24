@@ -1,6 +1,6 @@
 import { warn, error, debug, i18n } from "../foundryvtt-tokenseffects";
 import { MODULE_NAME } from "./settings";
-import {libWrapper} from './libs/libWrapper/shim.js'
+import {libWrapper} from './libs/shim.js'
 //@ts-ignore
 import { CanvasAnimation } from ''; //TODO CHECK OUT PATH
 import { Auras } from "./Auras";
