@@ -47,7 +47,7 @@
       }
     ],
     "scripts": [
-      "./module/libs/libWrapper/shim.js"
+      "./module/libs/shim.js"
     ],
     "esmodules": [
       "foundryvtt-tokeneffects.js"
