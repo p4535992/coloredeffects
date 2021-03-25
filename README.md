@@ -88,6 +88,7 @@ Auras.newAura();
 ```
 
 ##### Examples
+
 Programmatically edit the radius of an aura to be `10` grid units:
 ```js
 token.setFlag('foundryvtt-tokeneffects', 'aura1.distance', 10);
@@ -108,7 +109,6 @@ token.setFlag('foundryvtt-tokeneffects', 'auras', existingAuras);
 ### [Point of Vision](https://github.com/eadorin/point-of-vision)
 
 Point of Vision is designed to let the DM set the point of origin for LOS for tokens.
-
 
 ![Points of Vision](./images/menu.png?raw=true)
 
