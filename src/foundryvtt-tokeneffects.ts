@@ -10,7 +10,7 @@
  * 					 determines how others may use and modify your module
  */
 // Import JavaScript modules
-import {libWrapper} from './module/libs/shim.js'
+
 // Import TypeScript modules
 import { registerSettings } from './module/settings';
 import { preloadTemplates } from './module/preloadTemplates';
@@ -72,6 +72,7 @@ Hooks.once('setup', function () {
 /* When ready							*/
 /* ------------------------------------ */
 Hooks.once('ready', () => {
+	
 	// Do anything once the module is ready
 	if (!game.modules.get("lib-wrapper")?.active && game.user.isGM){
    	ui.notifications.error(`The '${MODULE_NAME}' module requires to install and activate the 'libWrapper' module.`);

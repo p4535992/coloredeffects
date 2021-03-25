@@ -1,3 +1,4 @@
+import { getTokenByTokenID } from './helper';
 import { MODULE_NAME } from './settings';
 // const mod = 'point-of-vision';
 const modKey = 'pov';
@@ -256,18 +257,20 @@ export class PointOfVision {
             let sel = (this.getFlag(MODULE_NAME, modKey) % 5 === 0) ? 0 : this.getFlag(MODULE_NAME, modKey);
             p = lightPositions[sel];
         }
-        if (!p) return;
-
+        if (!p){
+            return wrapped(...args);
+        }
         if (m) {
             // p = canvas.grid.getSnappedPosition(m.B.x, m.B.y);
             // p = {x:this.center.x-this.w,y:this.center.y-this.w};
         }
-        return {
-            x: p.x - this._velocity.sx,
-            y: p.y - this._velocity.sy
-        };
-
-        //return wrapped(...args);
+        // return {
+        //     x: p.x - this._velocity.sx,
+        //     y: p.y - this._velocity.sy
+        // };
+        this.center.x = p.x - this._velocity.sx,
+        this.center.y = p.y - this._velocity.sy
+        return wrapped(...args);
     } // end monkeypatch getSightOrigin
 
     /**
@@ -279,9 +282,9 @@ export class PointOfVision {
      * @param {boolean} forceUpdateFog  Forcibly update the Fog exploration progress for the current location
      */
     static tokenPrototypeUpdateTokenHandler = function (wrapped, ...args) {
-      const [token, defer = false, deleted = false, walls = null, forceUpdateFog = false] = args;
+        const [token, defer = false, deleted = false, walls = null, forceUpdateFog = false] = args;
 
-        let sourceId = `Token.${token.id}`;
+        let sourceId = `Token.${token._id}`;
         this.sources.vision.delete(sourceId);
         this.sources.lights.delete(sourceId);
         if (deleted) return defer ? null : this.update();
@@ -466,8 +469,8 @@ export class PointOfVision {
 // Hooks.on("renderTokenConfigPF", PointOfVision.renderTokenConfig);
 // Hooks.on("preUpdateToken", PointOfVision.preUpdateToken);
 
-export async function getTokenByTokenID(id) {
-    return canvas.tokens.placeables.find(x => {
-        return x.id === id
-    });
-}
+// export async function getTokenByTokenID(id) {
+//     return canvas.tokens.placeables.find(x => {
+//         return x.id === id
+//     });
+// }

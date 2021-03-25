@@ -1,5 +1,5 @@
-import { debug, error, debugEnabled } from "../foundryvtt-tokenseffects";
-import { log } from "../foundryvtt-tokenseffects";
+import { debug, error, debugEnabled } from "../foundryvtt-tokeneffects";
+import { log } from "../foundryvtt-tokeneffects";
 import { MODULE_NAME } from './settings';
 let modules = {
               "lib-wrapper": "0.0.0",

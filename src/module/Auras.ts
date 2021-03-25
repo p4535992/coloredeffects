@@ -32,17 +32,17 @@ export const Auras = {
 				${auras.map((aura, idx) => `
 					<li class="aura-row flexrow">
 						<input class="color" type="text" value="${aura.colour}"
-						       name="flags."${MODULE_NAME}".aura${idx + 1}.colour">
+						       name="flags.foundryvtt-tokeneffects.aura${idx + 1}.colour">
 						<input type="color" value="${aura.colour}"
-						       data-edit="flags."${MODULE_NAME}".aura${idx + 1}.colour">
+						       data-edit="flags.foundryvtt-tokeneffects.aura${idx + 1}.colour">
 						<input type="text" data-dtype="Number" value="${aura.opacity}"
-						       name="flags."${MODULE_NAME}".aura${idx + 1}.opacity">
+						       name="flags.foundryvtt-tokeneffects.aura${idx + 1}.opacity">
 						<span>${game.i18n.localize(MODULE_NAME+'.Opacity')}</span>
-						<input type="text" name="flags"${MODULE_NAME}".aura${idx + 1}.distance"
+						<input type="text" name="flags.foundryvtt-tokeneffects.aura${idx + 1}.distance"
 						       value="${aura.distance ? aura.distance : ''}" data-dtype="Number">
 						<span>${game.i18n.localize('SCENES.Units')}</span>
 						<label class="checkbox">
-							<input type="checkbox" name="flags."${MODULE_NAME}".aura${idx + 1}.square"
+							<input type="checkbox" name="flags.foundryvtt-tokeneffects.aura${idx + 1}.square"
 							       ${aura.square ? 'checked' : ''}>
 							${game.i18n.localize('SCENES.GridSquare')}
 						</label>
@@ -62,3 +62,84 @@ export const Auras = {
 				(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
 	}
 };
+
+// Hooks.on('renderTokenConfig', Auras.onConfigRender);
+
+// Token.prototype.draw = (function () {
+export const tokenDrawHandler = function (wrapped, ...args) {
+	const cached = Token.prototype.draw;
+	return function () {
+		const p = cached.apply(this, arguments);
+		this.auras = this.addChildAt(new PIXI.Container(), 0);
+		this.drawAuras();
+		//return p;
+		return wrapped(...args);
+	};
+// })();
+}
+
+// Token.prototype['drawAuras'] = function () {
+export const tokenDrawAurasHandler = function (wrapped, ...args) {
+	this.auras.removeChildren().forEach(c => c.destroy());
+	const auras = Auras.getAllAuras(this).filter(a => a.distance);
+
+	if (auras.length) {
+		const gfx = this.auras.addChild(new PIXI.Graphics());
+		const squareGrid = canvas.scene.data.gridType === 1;
+		const dim = canvas.dimensions;
+		const unit = dim.size / dim.distance;
+		const [cx, cy] = [this.w / 2, this.h / 2];
+		const {width, height} = this.data;
+
+		auras.forEach(aura => {
+			let w, h;
+
+			if (aura.square) {
+				w = aura.distance * 2 + (width * dim.distance);
+				h = aura.distance * 2 + (height * dim.distance);
+			} else {
+				[w, h] = [aura.distance, aura.distance];
+
+				if (squareGrid) {
+					w += width * dim.distance / 2;
+					h += height * dim.distance / 2;
+				} else {
+					w += (width - 1) * dim.distance / 2;
+					h += (height - 1) * dim.distance / 2;
+				}
+			}
+
+			w *= unit;
+			h *= unit;
+			gfx.beginFill(colorStringToHex(aura.colour), aura.opacity);
+
+			if (aura.square) {
+				const [x, y] = [cx - w / 2, cy - h / 2];
+				gfx.drawRect(x, y, w, h);
+			} else {
+				gfx.drawEllipse(cx, cy, w, h);
+			}
+
+			gfx.endFill();
+		});
+	}
+	return wrapped(...args);
+};
+
+// Token.prototype['_onUpdate'] = (function () {
+export const tokenOnUpdateHandler = function (wrapped, ...args) {
+	const cached = Token.prototype['_onUpdate'];
+	return function (data) {
+	//	cached.apply(this, arguments);
+		const aurasUpdated =
+			data.flags && data.flags[MODULE_NAME]
+			&& ['aura1', 'aura2', 'auras']
+				.some(k => typeof data.flags[MODULE_NAME][k] === 'object');
+
+		if (aurasUpdated) {
+			this.drawAuras();
+		}
+	};
+	return wrapped(...args);
+}
+// })();

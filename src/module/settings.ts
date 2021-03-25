@@ -1,4 +1,4 @@
-import { debug, log, setDebugLevel, warn, i18n } from '../foundryvtt-tokenseffects';
+import { debug, log, setDebugLevel, warn, i18n } from '../foundryvtt-tokeneffects';
 
 export const MODULE_NAME = 'foundryvtt-tokeneffects';
 
