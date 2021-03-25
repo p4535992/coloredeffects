@@ -7,28 +7,52 @@ import { Auras } from "./Auras";
 
 export let readyHooks = async () => {
 
-  if (game.settings.get(MODULE_NAME, "coloredEffectsEnabled")){
-    Hooks.on("closeSettingsConfig",  closeSettingsConfigHandler);
-  }
+  Hooks.on("closeSettingsConfig",  () => {
+    if (game.settings.get(MODULE_NAME, "coloredEffectsEnabled")){
+      closeSettingsConfigHandler()
+    }
+  });
 
-  if (game.settings.get(MODULE_NAME, "notokenanimEnabled")){
-    CanvasAnimation.animateLinear = (function () {
-      const cached = CanvasAnimation.animateLinear;
-      return function (attributes, options:any = {}) {
-        if (game.settings.get(MODULE_NAME, "notokenanimEnabled")
-          && /Token\.[^.]+\.animateMovement/.test(options.name))
-        {
-          options.duration = 0;
+  // if (game.settings.get(MODULE_NAME, "notokenanimEnabled")){
+  //   CanvasAnimation.animateLinear = (function () {
+  //     const cached = CanvasAnimation.animateLinear;
+  //     return function (attributes, options:any = {}) {
+  //       if (game.settings.get(MODULE_NAME, "notokenanimEnabled")
+  //         && /Token\.[^.]+\.animateMovement/.test(options.name))
+  //       {
+  //         options.duration = 0;
+  //       }
+
+  //       return cached.apply(this, arguments);
+  //     };
+  //   })();
+  // }
+
+
+  Hooks.on('renderTokenConfig', (config, html) => {
+    if (game.settings.get(MODULE_NAME, "aurasEnabled")){
+      Auras.onConfigRender(config, html);
+    }
+  });
+
+
+  Hooks.on("preUpdateActor", (actor, updateData) => {
+    if (game.settings.get(MODULE_NAME, "sheetToTokenEnabled")){
+      if ("img" in updateData) {
+          actor.data.token.img = updateData.img;
+      }
+    }
+  });
+
+  Hooks.on("preUpdateToken", (scene, token, updateData) => {
+      if (game.settings.get(MODULE_NAME, "sheetToTokenEnabled")){
+        if ("actorData" in updateData) {
+            if ("img" in updateData.actorData) {
+                updateData.img = updateData.actorData.img;
+            }
         }
-
-        return cached.apply(this, arguments);
-      };
-    })();
-  }
-
-  if (game.settings.get(MODULE_NAME, "aurasEnabled")){
-    Hooks.on('renderTokenConfig', Auras.onConfigRender);
-  }
+      }
+  });
 
 }
 
@@ -50,6 +74,10 @@ export let initHooks = () => {
     libWrapper.register(MODULE_NAME, 'Token.prototype.drawAuras', tokenDrawAurasHandler, 'WRAPPER');
     libWrapper.register(MODULE_NAME, 'Token.prototype._onUpdate', tokenOnUpdateHandler, 'WRAPPER');
 
+  }
+
+  if (game.settings.get(MODULE_NAME, "notokenanimEnabled")){
+    libWrapper.register(MODULE_NAME, 'CanvasAnimation.animateLinear', canvasAnimationAnimateLinearHandler, 'WRAPPER');
   }
 
 }
@@ -181,4 +209,20 @@ const tokenOnUpdateHandler = function (wrapped, ...args) {
 		}
     return wrapped(...args);
 	};
+}
+
+
+const canvasAnimationAnimateLinearHandler = function (wrapped, ...args) {
+    //const cached = CanvasAnimation.animateLinear;
+    //return function (attributes, options:any = {}) {
+      const [options] = args;
+      if (game.settings.get(MODULE_NAME, "notokenanimEnabled")
+        && /Token\.[^.]+\.animateMovement/.test(options.name))
+      {
+        options.duration = 0;
+      }
+
+      //return cached.apply(this, arguments);
+      return wrapped(...args);
+    // };
 }

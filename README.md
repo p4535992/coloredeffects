@@ -8,15 +8,24 @@ For overlay icons, user-defined color and opacity settings are available. For st
 
 There are more than 300 modules in foundry vtt so the scope of this module is to reduce the number of modules on your game and integrate them with each other and put together something that works.
 
-This project is born for install on one single module the following modules for manage effects on token:
+This project is born for install on one single module the following modules for manage effects on token and avoid colisisons and strange behaviours:
 
 - [Token Auras](https://bitbucket.org/Fyorl/token-auras/src/master/) ty to [Fyorl](https://bitbucket.org/Fyorl/)
 - [NoTokenAnim](https://bitbucket.org/Fyorl/notokenanim/src/master/) ty to [Fyorl](https://bitbucket.org/Fyorl/)
 - [Colored Effects](https://github.com/sean8223/coloredeffects) ty to [sean8223](https://github.com/sean8223)
+- [Sheet To Token](https://gitlab.com/brunhine/foundry-SheetToToken/) ty to [brunhin](https://gitlab.com/brunhine)
 
-## How to Use
+## Installation
 
-Install the module form foundryvtt or by the module.json
+It's always easiest to install modules from the in game add-on browser.
+
+To install this module manually:
+1.  Inside the Foundry "Configuration and Setup" screen, click "Add-on Modules"
+2.  Click "Install Module"
+3.  In the "Manifest URL" field, paste the following url:
+`https://raw.githubusercontent.com/p4535992/coloredeffects/master/src/module.json`
+4.  Click 'Install' and wait for installation to complete
+5.  Don't forget to enable the module in game using the "Manage Module" button
 
 ### libWrapper
 
@@ -38,6 +47,8 @@ This module uses the [libWrapper](https://github.com/ruipin/fvtt-lib-wrapper) li
 
 - aurasEnabled : For configuring token auras. Auras are visual only, but should work in any system and can be used as a basis to build more advanced features on top of. The module adds configuration options for up to two auras to the token configuration dialog, and additional auras can be added programmatically, with no limit.
 
+- sheetToTokenEnabled: Sheet To Token is a module for Foundry VTT that automatically updates an actor's Prototype Token to match its actor image when updated. Change the image of an actor, and the Prototype Token will be changed as well.
+
 ## Features
 
 
@@ -57,7 +68,7 @@ A [FoundryVTT](https://foundryvtt.com) module for configuring token auras. Auras
 
 ![Example aura visuals](./images/example-aura.jpg)
 
-## API
+##### API
 
 Aura objects have the following properties:
 ```js
@@ -75,7 +86,7 @@ A new aura can be created with:
 Auras.newAura();
 ```
 
-### Examples
+##### Examples
 Programmatically edit the radius of an aura to be `10` grid units:
 ```js
 token.setFlag('foundryvtt-tokeneffects', 'aura1.distance', 10);
@@ -91,5 +102,18 @@ auras.push(newAura);
 token.setFlag('foundryvtt-tokeneffects', 'auras', existingAuras);
 ```
 
+#### [Sheet To Token](https://gitlab.com/brunhine/foundry-SheetToToken/)
+
 
 ## [Changelog](./changelog.md)
+
+## Feedback
+All feedback and suggestions are welcome. Please contact me on Discord (Brunhine#2182).
+
+Any issues, bugs, or feature requests are always welcome to be reported directly to the [Issue Tracker](https://github.com/p4535992/coloredeffects/issues )
+
+## Acknowledgements
+
+Bootstrapped with Nick East's [create-foundry-project](https://gitlab.com/foundry-projects/foundry-pc/create-foundry-project).
+
+Mad props to the 'League of Extraordinary FoundryVTT Developers' community which helped me figure out a lot.

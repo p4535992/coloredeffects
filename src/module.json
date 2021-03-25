@@ -55,10 +55,10 @@
     "styles": [
       "styles/aura.css"
     ],
-    "url": "https://github.com/sean8223/coloredeffects",
-    "manifest": "https://raw.githubusercontent.com/sean8223/coloredeffects/master/src/module.json",
-    "download": "https://github.com/sean8223/coloredeffects/master/package/coloredeffects.zip",
+    "url": "https://github.com/p4535992/coloredeffects",
+    "manifest": "https://raw.githubusercontent.com/p4535992/coloredeffects/master/src/module.json",
+    "download": "https://github.com/p4535992/coloredeffects/master/package/coloredeffects.zip",
     "minimumCoreVersion": "0.7.6",
     "compatibleCoreVersion": "0.7.9",
-    "changelog": "https://raw.githubusercontent.com/sean8223/coloredeffects/master/changelog.md"
+    "changelog": "https://raw.githubusercontent.com/p4535992/coloredeffects/master/changelog.md"
 }

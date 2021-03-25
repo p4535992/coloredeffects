@@ -31,6 +31,15 @@ export const registerSettings = function () {
 		config: true
 	});
 
+  game.settings.register(MODULE_NAME, "sheetToTokenEnabled", {
+		name: i18n(MODULE_NAME+".sheetToTokenEnabled.name"),
+    hint: i18n(MODULE_NAME+".sheetToTokenEnabled.hint"),
+		default: false,
+		type: Boolean,
+		scope: 'world',
+		config: true
+	});
+
   game.settings.register(MODULE_NAME, "overlayColor", {
     name: i18n(MODULE_NAME+".overlayColor.name"),
     hint: i18n(MODULE_NAME+".overlayColor.hint"),
