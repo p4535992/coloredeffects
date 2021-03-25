@@ -24,6 +24,8 @@
     "foundryvtt-tokeneffects.coloredEffectsEnabled.name": "Enable/Disable Colored Effects feature",
     "foundryvtt-tokeneffects.coloredEffectsEnabled.hint": "For configuring colored effects",
     "foundryvtt-tokeneffects.sheetToTokenEnabled.name": "Enable/Disable Sheet to token feature",
-    "foundryvtt-tokeneffects.sheetToTokenEnabled.hint": "For configuring Sheet to token"
+    "foundryvtt-tokeneffects.sheetToTokenEnabled.hint": "For configuring Sheet to token",
+    "foundryvtt-tokeneffects.pointOfVisionEnabled.name": "Enable/Disable Point of vision feature",
+    "foundryvtt-tokeneffects.pointOfVisionEnabled.hint": "For configuring Point of vision"
 
 }

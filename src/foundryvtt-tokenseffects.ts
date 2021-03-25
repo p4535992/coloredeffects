@@ -77,9 +77,21 @@ Hooks.once('ready', () => {
    	ui.notifications.error(`The '${MODULE_NAME}' module requires to install and activate the 'libWrapper' module.`);
 		return;
 	}
-	// if (!game.modules.get("colorsettings")?.active && game.user.isGM){
-	//   ui.notifications.warn(`The '${MODULE_NAME}', please make sure you have the "lib - ColorSettings" module installed and enabled.`);
-	// }
+	if (game.modules.get("token-auras")?.active && game.user.isGM){
+	  ui.notifications.warn(`The 'token-auras', is not needed anymore just use '${MODULE_NAME}'`);
+	}
+	if (game.modules.get("notokenanim")?.active && game.user.isGM){
+	  ui.notifications.warn(`The 'notokenanim', is not needed anymore just use '${MODULE_NAME}'`);
+	}
+  if (game.modules.get("coloredeffects")?.active && game.user.isGM){
+	  ui.notifications.warn(`The 'coloredeffects', is not needed anymore just use '${MODULE_NAME}'`);
+	}
+  if (game.modules.get("sheet-to-token")?.active && game.user.isGM){
+	  ui.notifications.warn(`The 'sheet-to-token', is not needed anymore just use '${MODULE_NAME}'`);
+	}
+  if (game.modules.get("point-of-vision")?.active && game.user.isGM){
+	  ui.notifications.warn(`The 'point-of-vision', is not needed anymore just use '${MODULE_NAME}'`);
+	}
 
 	readyHooks();
 });

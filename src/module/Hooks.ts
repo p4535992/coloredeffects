@@ -2,8 +2,9 @@ import { warn, error, debug, i18n } from "../foundryvtt-tokenseffects";
 import { MODULE_NAME } from "./settings";
 import {libWrapper} from './libs/shim.js'
 //@ts-ignore
-import { CanvasAnimation } from ''; //TODO CHECK OUT PATH
+// import { CanvasAnimation } from ''; //TODO CHECK OUT PATH
 import { Auras } from "./Auras";
+import { PointOfVision } from './point-of-vision';
 
 export let readyHooks = async () => {
 
@@ -33,8 +34,14 @@ export let readyHooks = async () => {
     if (game.settings.get(MODULE_NAME, "aurasEnabled")){
       Auras.onConfigRender(config, html);
     }
+    if (game.settings.get(MODULE_NAME, "pointOfVisionEnabled")){
+      PointOfVision.renderTokenConfig(config);
+    }
   });
 
+  Hooks.on("renderTokenConfigPF", (config, html) => {
+    PointOfVision.renderTokenConfig(config);
+  });
 
   Hooks.on("preUpdateActor", (actor, updateData) => {
     if (game.settings.get(MODULE_NAME, "sheetToTokenEnabled")){
@@ -44,13 +51,16 @@ export let readyHooks = async () => {
     }
   });
 
-  Hooks.on("preUpdateToken", (scene, token, updateData) => {
+  Hooks.on("preUpdateToken", (scene, token, updateData, diff) => {
       if (game.settings.get(MODULE_NAME, "sheetToTokenEnabled")){
         if ("actorData" in updateData) {
             if ("img" in updateData.actorData) {
                 updateData.img = updateData.actorData.img;
             }
         }
+      }
+      if (game.settings.get(MODULE_NAME, "pointOfVisionEnabled")){
+        PointOfVision.preUpdateToken(scene, token, updateData, diff);
       }
   });
 
@@ -60,7 +70,6 @@ export let initHooks = () => {
   warn("Init Hooks processing");
 
   // setup all the hooks
-
   if (game.settings.get(MODULE_NAME, "coloredEffectsEnabled")){
 
     libWrapper.register(MODULE_NAME, 'Token.prototype._drawOverlay', tokenDrawOverlayHandler, 'WRAPPER');
@@ -80,7 +89,18 @@ export let initHooks = () => {
     libWrapper.register(MODULE_NAME, 'CanvasAnimation.animateLinear', canvasAnimationAnimateLinearHandler, 'WRAPPER');
   }
 
+  if (game.settings.get(MODULE_NAME, "pointOfVisionEnabled")){
+    //PointOfVision.init();
+    libWrapper.register(MODULE_NAME, 'Token.prototype.getSightOrigin', PointOfVision.tokenPrototypeGetSightOriginHandler, 'WRAPPER');
+    libWrapper.register(MODULE_NAME, 'Token.prototype.updateToken', PointOfVision.tokenPrototypeUpdateTokenHandler, 'WRAPPER');
+  }
+
+
 }
+
+// ==============================
+// HANDLERS
+// ================================
 
 const closeSettingsConfigHandler = function(){
   let ownedTokens = canvas.getLayer("TokenLayer").ownedTokens;

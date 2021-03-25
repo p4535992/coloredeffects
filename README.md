@@ -1,19 +1,16 @@
 # Tokens Effects
 
-An extension module for FoundryVTT that adds style settings for status and overlay icons.
-
-For overlay icons, user-defined color and opacity settings are available. For status icons, user-defined color and opacity, as well as background color, opacity and border settings are available.
-
-## The project
-
 There are more than 300 modules in foundry vtt so the scope of this module is to reduce the number of modules on your game and integrate them with each other and put together something that works.
 
-This project is born for install on one single module the following modules for manage effects on token and avoid colisisons and strange behaviours:
+This project is born for install on one single module the following modules for manage effects on token and avoid collisions and strange behaviours:
 
 - [Token Auras](https://bitbucket.org/Fyorl/token-auras/src/master/) ty to [Fyorl](https://bitbucket.org/Fyorl/)
 - [NoTokenAnim](https://bitbucket.org/Fyorl/notokenanim/src/master/) ty to [Fyorl](https://bitbucket.org/Fyorl/)
 - [Colored Effects](https://github.com/sean8223/coloredeffects) ty to [sean8223](https://github.com/sean8223)
-- [Sheet To Token](https://gitlab.com/brunhine/foundry-SheetToToken/) ty to [brunhin](https://gitlab.com/brunhine)
+- [Sheet To Token](https://gitlab.com/brunhine/foundry-SheetToToken/) ty to [brunhine](https://gitlab.com/brunhine)
+- [Point of Vision](https://github.com/eadorin/point-of-vision) ty to [eadorin](https://github.com/eadorin)
+
+I loved each of the modules mentioned above, but sadly some seem abandoned or incompatible with any of the other 300 foundryvtt modules. I don't want to take any credit. I just took the ideas and the code of the various modules and integrated them together (in particular where it was possible with 'libwrappper'), so that they do not get any conflict and can be disabled from the module settings without having to go to 'module management'.
 
 ## Installation
 
@@ -52,15 +49,19 @@ This module uses the [libWrapper](https://github.com/ruipin/fvtt-lib-wrapper) li
 ## Features
 
 
-#### [Colored Effect](https://github.com/sean8223/coloredeffects)
+### [Colored Effect](https://github.com/sean8223/coloredeffects)
 
 Install the module and open the Game Settings window. Click "Configure Settings" and select the "Module Settings" tab. You will see options for the various color properties for icons under the "Colored Effects" menu. Modify them as you see fit, and click "Save Changes".
 
-#### [No animation token](https://bitbucket.org/Fyorl/notokenanim/src/master/)
+An extension module for FoundryVTT that adds style settings for status and overlay icons.
+
+For overlay icons, user-defined color and opacity settings are available. For status icons, user-defined color and opacity, as well as background color, opacity and border settings are available.
+
+### [No animation token](https://bitbucket.org/Fyorl/notokenanim/src/master/)
 
 A Foundry module VTT settings that provides an option to remove token movement animations.
 
-#### [Token Auras](https://bitbucket.org/Fyorl/token-auras/src/master/)
+### [Token Auras](https://bitbucket.org/Fyorl/token-auras/src/master/)
 
 A [FoundryVTT](https://foundryvtt.com) module for configuring token auras. Auras are visual only, but should work in any system and can be used as a basis to build more advanced features on top of. The module adds configuration options for up to two auras to the token configuration dialog, and additional auras can be added programmatically, with no limit.
 
@@ -102,13 +103,18 @@ auras.push(newAura);
 token.setFlag('foundryvtt-tokeneffects', 'auras', existingAuras);
 ```
 
-#### [Sheet To Token](https://gitlab.com/brunhine/foundry-SheetToToken/)
+### [Sheet To Token](https://gitlab.com/brunhine/foundry-SheetToToken/)
 
+### [Point of Vision](https://github.com/eadorin/point-of-vision)
+
+Point of Vision is designed to let the DM set the point of origin for LOS for tokens.
+
+
+![Points of Vision](./images/menu.png?raw=true)
 
 ## [Changelog](./changelog.md)
 
 ## Feedback
-All feedback and suggestions are welcome. Please contact me on Discord (Brunhine#2182).
 
 Any issues, bugs, or feature requests are always welcome to be reported directly to the [Issue Tracker](https://github.com/p4535992/coloredeffects/issues )
 
@@ -117,3 +123,13 @@ Any issues, bugs, or feature requests are always welcome to be reported directly
 Bootstrapped with Nick East's [create-foundry-project](https://gitlab.com/foundry-projects/foundry-pc/create-foundry-project).
 
 Mad props to the 'League of Extraordinary FoundryVTT Developers' community which helped me figure out a lot.
+
+## Credit
+
+Thanks to anyone who helps me with this code! I appreciate the user community's feedback on this project!
+
+- [Token Auras](https://bitbucket.org/Fyorl/token-auras/src/master/) ty to [Fyorl](https://bitbucket.org/Fyorl/)
+- [NoTokenAnim](https://bitbucket.org/Fyorl/notokenanim/src/master/) ty to [Fyorl](https://bitbucket.org/Fyorl/)
+- [Colored Effects](https://github.com/sean8223/coloredeffects) ty to [sean8223](https://github.com/sean8223)
+- [Sheet To Token](https://gitlab.com/brunhine/foundry-SheetToToken/) ty to [brunhin](https://gitlab.com/brunhine)
+- [Point of Vision](https://github.com/eadorin/point-of-vision) ty to [eadorin](https://github.com/eadorin)

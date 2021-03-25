@@ -7,7 +7,7 @@ export const registerSettings = function () {
   game.settings.register(MODULE_NAME, "coloredEffectsEnabled", {
 		name: i18n(MODULE_NAME+".coloredEffectsEnabled.name"),
     hint: i18n(MODULE_NAME+".coloredEffectsEnabled.hint"),
-		default: true,
+		default: false,
 		type: Boolean,
 		scope: "world",
 		config: true
@@ -25,7 +25,7 @@ export const registerSettings = function () {
   game.settings.register(MODULE_NAME, "aurasEnabled", {
 		name: i18n(MODULE_NAME+".aurasEnabled.name"),
     hint: i18n(MODULE_NAME+".aurasEnabled.hint"),
-		default: true,
+		default: false,
 		type: Boolean,
 		scope: 'client',
 		config: true
@@ -39,6 +39,17 @@ export const registerSettings = function () {
 		scope: 'world',
 		config: true
 	});
+
+  game.settings.register(MODULE_NAME, "pointOfVisionEnabled", {
+		name: i18n(MODULE_NAME+".pointOfVisionEnabled.name"),
+    hint: i18n(MODULE_NAME+".pointOfVisionEnabled.hint"),
+		default: false,
+		type: Boolean,
+		scope: 'world',
+		config: true
+	});
+
+
 
   game.settings.register(MODULE_NAME, "overlayColor", {
     name: i18n(MODULE_NAME+".overlayColor.name"),

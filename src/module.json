@@ -2,7 +2,7 @@
     "name": "foundryvtt-tokeneffects",
     "title": "FoundryVTT Tokens Effects",
     "description": "Adds settings to control the display of status and overlay icons on tokens",
-    "author": "Sean Wellington, Fyorl, p4535992",
+    "author": "sean8223, Fyorl, brunhine, eadorin, p4535992",
     "version": "1.0.0",
     "type": "module",
     "socket": true,
