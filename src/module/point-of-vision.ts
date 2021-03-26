@@ -333,21 +333,15 @@ export class PointOfVision {
             });
 
             // Add a vision source
-            // const source = new SightLayerSource({
-            //     x: center.x,
-            //     y: center.y,
-            //     los: los,
-            //     fov: fov,
-            //     dim: dim,
-            //     bright: bright
-            // });
-            const source = new CanvasLayer();
-            source.x = center.x;
-            source.y = center.y;
-            source['los'] = los;
-            source['fov'] = fov;
-            source['dim'] = dim;
-            source['bright'] = bright;
+            //@ts-ignore
+            const source = new SightLayerSource({
+                x: center.x,
+                y: center.y,
+                los: los,
+                fov: fov,
+                dim: dim,
+                bright: bright
+            });
 
             this.sources.vision.set(sourceId, source);
 
@@ -392,25 +386,17 @@ export class PointOfVision {
             });
 
             // Add a light source
-            // const source = new SightLayerSource({
-            //     x: center.x,
-            //     y: center.y,
-            //     los: null,
-            //     fov: fov,
-            //     dim: dim,
-            //     bright: bright,
-            //     color: token.data.lightColor,
-            //     alpha: token.data.lightAlpha
-            // });
-            const source = new CanvasLayer();
-            source.x = center.x;
-            source.y = center.y;
-            source['los'] = null;
-            source['fov'] = fov;
-            source['dim'] = dim;
-            source['bright'] = bright;
-            source['color'] = token.data.lightColor;
-            source.alpha = token.data.lightAlpha;
+            //@ts-ignore
+            const source = new SightLayerSource({
+                x: center.x,
+                y: center.y,
+                los: null,
+                fov: fov,
+                dim: dim,
+                bright: bright,
+                color: token.data.lightColor,
+                alpha: token.data.lightAlpha
+            });
 
             this.sources.lights.set(sourceId, source);
         }

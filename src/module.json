@@ -60,5 +60,7 @@
     "download": "https://raw.githubusercontent.com/p4535992/coloredeffects/master/package/foundryvtt-tokeneffects-v1.0.0.zip",
     "minimumCoreVersion": "0.7.6",
     "compatibleCoreVersion": "0.7.9",
-    "changelog": "https://raw.githubusercontent.com/p4535992/coloredeffects/master/changelog.md"
+    "changelog": "https://raw.githubusercontent.com/p4535992/coloredeffects/master/changelog.md",
+    "bugs": "https://github.com/p4535992/coloredeffects/issues",
+    "allowBugReporter": true
 }
