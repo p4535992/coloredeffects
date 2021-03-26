@@ -114,7 +114,7 @@ Point of Vision is designed to let the DM set the point of origin for LOS for to
 
 ## [Changelog](./changelog.md)
 
-## Feedback
+## Issues
 
 Any issues, bugs, or feature requests are always welcome to be reported directly to the [Issue Tracker](https://github.com/p4535992/coloredeffects/issues ), or using the [Bug Reporter Module](https://foundryvtt.com/packages/bug-reporter/).
 
