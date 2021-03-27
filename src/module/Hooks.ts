@@ -12,6 +12,7 @@ import { ColoredEffects } from "./coloredEffects";
 import { NoTokenAnimation } from "./noTokenAnimation";
 import { TokenVisionAnimationWorld } from "./tokenVisionAnimationWorld";
 import { TokenFactions, TokenFactiosHelper } from "./tokenFactions";
+import { FloatingConditions } from './floatingConditions';
 
 export let readyHooks = async () => {
 
@@ -88,7 +89,7 @@ export let readyHooks = async () => {
         SheetToToken.preUpdateTokenHandler(updateData);       
       }
       if (game.settings.get(MODULE_NAME, "pointOfVisionEnabled")){
-        PointOfVision.preUpdateToken(scene, token, updateData, diff);
+        // PointOfVision.preUpdateToken(scene, token, updateData, diff); // TODO TO CHECK
       }
   });
 
@@ -100,8 +101,11 @@ export let readyHooks = async () => {
 
 	Hooks.on("updateToken", (scene, token, updateData, diff) => {
 		if (game.settings.get(MODULE_NAME, "pointOfVisionEnabled")){
-			PointOfVision.tokenPrototypeUpdateTokenHandler(token, updateData);
+			// PointOfVision.tokenPrototypeUpdateTokenHandler(token, updateData); // TODO TO CHECK
 		}
+    if (game.settings.get(MODULE_NAME, "floatingConditionsEnabled")){
+      FloatingConditions.onUpdateToken(scene, token);
+    }
 	});
 
   if (game.settings.get(MODULE_NAME, "tokenVisionAnimationWorldEnabled")){
@@ -130,6 +134,15 @@ export let readyHooks = async () => {
     }
   });
 
+  Hooks.on('createToken', (scene, tokenData) => {
+    if (game.settings.get(MODULE_NAME, "floatingConditionsEnabled")){
+      FloatingConditions.onCreateToken(scene, tokenData);
+    }
+  });
+ 
+
+
+
 }
 
 export let initHooks = () => {
@@ -141,6 +154,10 @@ export let initHooks = () => {
   
   if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
     TokenFactions.onInit();
+  }
+
+  if (game.settings.get(MODULE_NAME, "floatingConditionsEnabled")){
+    FloatingConditions.onInit();
   }
 
 

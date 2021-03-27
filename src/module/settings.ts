@@ -277,7 +277,19 @@ export const registerSettings = function () {
         step: 0.05,
       },
     });
-  
+
+    // ================================
+    // Floating Conditons
+    // ===============================
+
+    game.settings.register(MODULE_NAME, "floatingConditionsEnabled", {
+      name: i18n(MODULE_NAME+".floatingConditionsEnabled.name"),
+      hint: i18n(MODULE_NAME+".floatingConditionsEnabled.hint"),
+      default: false,
+      type: Boolean,
+      scope: 'world',
+      config: true
+    });
 
 }
 

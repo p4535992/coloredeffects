@@ -30,5 +30,7 @@
     "foundryvtt-tokeneffects.tokenVisionAnimationWorldEnabled.name": "Enable/Disable Token Vision Animation: World Scope feature",
     "foundryvtt-tokeneffects.tokenVisionAnimationWorldEnabled.hint": "Sets 'Token Vision Animation' setting from client to world. Now you can move player tokens safely without disclosure of scene data in the middle of movement.",
     "foundryvtt-tokeneffects.tokenFactionsEnabled.name": "Enable/Disable Token Factions Feature",
-    "foundryvtt-tokeneffects.tokenFactionsEnabled.hint": "Generate token bases based on token disposition or actor folder color."
+    "foundryvtt-tokeneffects.tokenFactionsEnabled.hint": "Generate token bases based on token disposition or actor folder color.",
+    "foundryvtt-tokeneffects.floatingConditionsEnabled.name": "Enable/Disable Floating Conditions Feature",
+    "foundryvtt-tokeneffects.floatingConditionsEnabled.hint": "For configuring Floating Conditions"
 }
