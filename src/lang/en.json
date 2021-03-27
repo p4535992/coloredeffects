@@ -28,5 +28,7 @@
     "foundryvtt-tokeneffects.pointOfVisionEnabled.name": "Enable/Disable Point of vision feature",
     "foundryvtt-tokeneffects.pointOfVisionEnabled.hint": "For configuring Point of vision",
     "foundryvtt-tokeneffects.tokenVisionAnimationWorldEnabled.name": "Enable/Disable Token Vision Animation: World Scope feature",
-    "foundryvtt-tokeneffects.tokenVisionAnimationWorldEnabled.hint": "Sets 'Token Vision Animation' setting from client to world. Now you can move player tokens safely without disclosure of scene data in the middle of movement."
+    "foundryvtt-tokeneffects.tokenVisionAnimationWorldEnabled.hint": "Sets 'Token Vision Animation' setting from client to world. Now you can move player tokens safely without disclosure of scene data in the middle of movement.",
+    "foundryvtt-tokeneffects.tokenFactionsEnabled.name": "Enable/Disable Token Factions Feature",
+    "foundryvtt-tokeneffects.tokenFactionsEnabled.hint": "Generate token bases based on token disposition or actor folder color."
 }

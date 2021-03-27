@@ -271,10 +271,10 @@ export class PointOfVision {
         //     x: p.x - this._velocity.sx,
         //     y: p.y - this._velocity.sy
         // };
-        // this.center.x = p.x - this._velocity.sx,
-        // this.center.y = p.y - this._velocity.sy
-        // return wrapped(...args);
-        return wrapped({x: p.x - this._velocity.sx, y: p.y - this._velocity.sy});
+        this.center.vision.x = p.x - this._velocity.sx,
+        this.center.vision.y = p.y - this._velocity.sy
+        return wrapped(...args);
+        //return wrapped({x: p.x - this._velocity.sx, y: p.y - this._velocity.sy});
     } // end monkeypatch getSightOrigin
 
     /**

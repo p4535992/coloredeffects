@@ -11,6 +11,7 @@ import { SheetToToken } from "./sheetToToken";
 import { ColoredEffects } from "./coloredEffects";
 import { NoTokenAnimation } from "./noTokenAnimation";
 import { TokenVisionAnimationWorld } from "./tokenVisionAnimationWorld";
+import { TokenFactions, TokenFactiosHelper } from "./tokenFactions";
 
 export let readyHooks = async () => {
 
@@ -34,10 +35,14 @@ export let readyHooks = async () => {
     libWrapper.register(MODULE_NAME, 'CanvasAnimation.animateLinear', NoTokenAnimation.canvasAnimationAnimateLinearHandler, 'WRAPPER');
   }
 
-  Hooks.on("closeSettingsConfig",  () => {
+  Hooks.on("closeSettingsConfig",  (token) => {
     if (game.settings.get(MODULE_NAME, "coloredEffectsEnabled")){
       ColoredEffects.closeSettingsConfigHandler()
     }
+    if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
+      TokenFactions.updateTokens(token);
+    }
+   
   });
 
   // if (game.settings.get(MODULE_NAME, "notokenanimEnabled")){
@@ -62,6 +67,9 @@ export let readyHooks = async () => {
     }
     if (game.settings.get(MODULE_NAME, "pointOfVisionEnabled")){
       PointOfVision.renderTokenConfig(config);
+    }
+    if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
+      TokenFactions.renderTokenConfig(config, html);
     }
   });
 
@@ -100,9 +108,35 @@ export let readyHooks = async () => {
     TokenVisionAnimationWorld.readyOnceHandler();
   }
 
+  if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){	
+		libWrapper.register(MODULE_NAME, 'Token.prototype.refresh', TokenFactiosHelper.tokenRefreshHandler, 'WRAPPER');
+	}
+  
+  Hooks.on('renderSettingsConfig', (sheet, html) => {
+    if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
+      TokenFactions.renderSettingsConfig(sheet, html);
+    }
+  });
+
+  Hooks.on('updateActor', (tokenData) => {
+    if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
+      TokenFactions.updateTokens(tokenData);
+    }
+  });
+
+  Hooks.on('updateFolder', (tokenData) => {
+    if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
+      TokenFactions.updateTokens(tokenData);
+    }
+  });
+
 }
 
 export let initHooks = () => {
   warn("Init Hooks processing");
+
+  if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
+    TokenFactions.onInit();
+  }
 
 }
