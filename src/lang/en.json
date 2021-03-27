@@ -15,7 +15,7 @@
     "foundryvtt-tokeneffects.statusColor.hint": "Color for status icons as a hex string (rrggbb)",
     "foundryvtt-tokeneffects.statusAlpha.name": "Status Icon Opacity",
     "foundryvtt-tokeneffects.statusAlpha.hint": "Opacity of status icons (0 = fully transparent, 1 = fully opaque)",
-    "foundryvtt-tokeneffects.notokenanimEnabled.name": "Enable/Disable Token Movement Animations feature",
+    "foundryvtt-tokeneffects.notokenanimEnabled.name": "Enable/Disable Disable Token Movement Animations feature",
     "foundryvtt-tokeneffects.notokenanimEnabled.hint": "Dragging and dropping tokens around the map will resolve instantly instead of sliding.",
     "foundryvtt-tokeneffects.Auras": "Auras",
     "foundryvtt-tokeneffects.Opacity": "opacity",
@@ -26,6 +26,7 @@
     "foundryvtt-tokeneffects.sheetToTokenEnabled.name": "Enable/Disable Sheet to token feature",
     "foundryvtt-tokeneffects.sheetToTokenEnabled.hint": "For configuring Sheet to token",
     "foundryvtt-tokeneffects.pointOfVisionEnabled.name": "Enable/Disable Point of vision feature",
-    "foundryvtt-tokeneffects.pointOfVisionEnabled.hint": "For configuring Point of vision"
-
+    "foundryvtt-tokeneffects.pointOfVisionEnabled.hint": "For configuring Point of vision",
+    "foundryvtt-tokeneffects.tokenVisionAnimationWorldEnabled.name": "Enable/Disable Token Vision Animation: World Scope feature",
+    "foundryvtt-tokeneffects.tokenVisionAnimationWorldEnabled.hint": "Sets 'Token Vision Animation' setting from client to world. Now you can move player tokens safely without disclosure of scene data in the middle of movement."
 }

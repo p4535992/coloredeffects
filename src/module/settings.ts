@@ -136,7 +136,7 @@ export const registerSettings = function () {
     hint: i18n(MODULE_NAME+".notokenanimEnabled.hint"),
 		default: false,
 		type: Boolean,
-		scope: 'client',
+		scope: 'world',
 		config: true
 	});
 
@@ -178,6 +178,20 @@ export const registerSettings = function () {
 	// 	scope: 'world',
 	// 	config: true
 	// });
+
+  // ================================
+  // Token Vision Animation
+  // ================================
+
+  game.settings.register(MODULE_NAME, "tokenVisionAnimationWorldEnabled", {
+    name: i18n(MODULE_NAME+".tokenVisionAnimationWorldEnabled.name"),
+    hint: i18n(MODULE_NAME+".tokenVisionAnimationWorldEnabled.hint"),
+    default: false,
+    type: Boolean,
+    scope: 'world',
+    config: true
+  });
+  
 
 }
 

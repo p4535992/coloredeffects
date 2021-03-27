@@ -10,6 +10,7 @@ import { getTokenByTokenID } from './helper';
 import { SheetToToken } from "./sheetToToken";
 import { ColoredEffects } from "./coloredEffects";
 import { NoTokenAnimation } from "./noTokenAnimation";
+import { TokenVisionAnimationWorld } from "./tokenVisionAnimationWorld";
 
 export let readyHooks = async () => {
 
@@ -94,6 +95,10 @@ export let readyHooks = async () => {
 			PointOfVision.tokenPrototypeUpdateTokenHandler(token, updateData);
 		}
 	});
+
+  if (game.settings.get(MODULE_NAME, "tokenVisionAnimationWorldEnabled")){
+    TokenVisionAnimationWorld.readyOnceHandler();
+  }
 
 }
 

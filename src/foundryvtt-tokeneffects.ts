@@ -87,16 +87,21 @@ Hooks.once('ready', () => {
 	if (game.modules.get("notokenanim")?.active && game.user.isGM){
 	  ui.notifications.warn(`The 'notokenanim', is not needed anymore just use '${MODULE_NAME}'`);
 	}
-  if (game.modules.get("coloredeffects")?.active && game.user.isGM){
+  	if (game.modules.get("coloredeffects")?.active && game.user.isGM){
 	  ui.notifications.warn(`The 'coloredeffects', is not needed anymore just use '${MODULE_NAME}'`);
 	}
-  if (game.modules.get("sheet-to-token")?.active && game.user.isGM){
+  	if (game.modules.get("sheet-to-token")?.active && game.user.isGM){
 	  ui.notifications.warn(`The 'sheet-to-token', is not needed anymore just use '${MODULE_NAME}'`);
 	}
-  if (game.modules.get("point-of-vision")?.active && game.user.isGM){
+  	if (game.modules.get("point-of-vision")?.active && game.user.isGM){
 	  ui.notifications.warn(`The 'point-of-vision', is not needed anymore just use '${MODULE_NAME}'`);
 	}
-
+	if (game.modules.get("token-vision-animation-world")?.active && game.user.isGM){
+	  ui.notifications.warn(`The 'token-vision-animation-world', is not needed anymore just use '${MODULE_NAME}'`);
+	}
+	if (game.modules.get("token-vision-animation-world")?.active && game.user.isGM){
+	  ui.notifications.warn(`The 'token-vision-animation-world', is not needed anymore just use '${MODULE_NAME}'`);
+	}	
 	readyHooks();
 });
 
