@@ -8,7 +8,7 @@ This project is born for install on one single module the following modules for 
 - [NoTokenAnim](https://bitbucket.org/Fyorl/notokenanim/src/master/) ty to [Fyorl](https://bitbucket.org/Fyorl/)
 - [Colored Effects](https://github.com/sean8223/coloredeffects) ty to [sean8223](https://github.com/sean8223)
 - [Sheet To Token](https://gitlab.com/brunhine/foundry-SheetToToken/) ty to [brunhine](https://gitlab.com/brunhine)
-- [Point of Vision](https://github.com/eadorin/point-of-vision) ty to [eadorin](https://github.com/eadorin)
+- [Point of Vision](https://github.com/eadorin/point-of-vision) ty to [eadorin](https://github.com/eadorin) (Still not work need more developing)
 
 I loved each of the modules mentioned above, but sadly some seem abandoned or incompatible with any of the other 300 foundryvtt modules. I don't want to take any credit. I just took the ideas and the code of the various modules and integrated them together (in particular where it was possible with 'libwrappper'), so that they do not get any conflict and can be disabled from the module settings without having to go to 'module management'.
 
@@ -115,6 +115,13 @@ token.setFlag('foundryvtt-tokeneffects', 'auras', existingAuras);
 Point of Vision is designed to let the DM set the point of origin for LOS for tokens.
 
 ![Points of Vision](./images/menu.png?raw=true)
+
+### Usage
+
+- Right-click on a token
+- Select the Token config gear
+- Click on the 'Vision' tab
+- Select your desired Point of Vision from the "Point of Vision" drop down menu. Positions are relative to the token
 
 ## [Changelog](./changelog.md)
 

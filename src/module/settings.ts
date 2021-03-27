@@ -25,7 +25,7 @@ export const registerSettings = function () {
     label: "Pick color",
     restricted: false,
     defaultColor: hexToRGBAString(0x43DFDF, 1),
-    
+
     name: i18n(MODULE_NAME+".overlayColor.name"),
     hint: i18n(MODULE_NAME+".overlayColor.hint"),
     scope: "world",
@@ -167,17 +167,17 @@ export const registerSettings = function () {
 	});
 
   // ================================
-  // POINT OF VISION
+  // POINT OF VISION (STILL NEED DEVELOPING)
   // ================================
 
-  game.settings.register(MODULE_NAME, "pointOfVisionEnabled", {
-		name: i18n(MODULE_NAME+".pointOfVisionEnabled.name"),
-    hint: i18n(MODULE_NAME+".pointOfVisionEnabled.hint"),
-		default: false,
-		type: Boolean,
-		scope: 'world',
-		config: true
-	});
+  // game.settings.register(MODULE_NAME, "pointOfVisionEnabled", {
+	// 	name: i18n(MODULE_NAME+".pointOfVisionEnabled.name"),
+  //   hint: i18n(MODULE_NAME+".pointOfVisionEnabled.hint"),
+	// 	default: false,
+	// 	type: Boolean,
+	// 	scope: 'world',
+	// 	config: true
+	// });
 
 }
 

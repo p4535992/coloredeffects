@@ -5,7 +5,7 @@ const modKey = 'pov';
 export class PointOfVision {
 
     // static init() {
-    //     Token.prototype.getSightOrigin = function (selectedIndex = null) {
+    //     Token.prototype['getSightOrigin'] = function (selectedIndex = null) {
 
 
     //         if ((typeof this.getFlag(MODULE_NAME, modKey)) === 'undefined') {
@@ -55,7 +55,7 @@ export class PointOfVision {
     //         if (selectedIndex) {
     //             p = lightPositions[selectedIndex];
     //         } else {
-    //             let sel = (this.getFlag(MODULE_NAME, modKey) % 5 === 0) ? 0 : this.getFlag(mod, modKey);
+    //             let sel = (this.getFlag(MODULE_NAME, modKey) % 5 === 0) ? 0 : this.getFlag(MODULE_NAME, modKey);
     //             p = lightPositions[sel];
     //         }
     //         if (!p) return;
@@ -79,7 +79,7 @@ export class PointOfVision {
     //      * @param {Array} walls             Optionally pass an array of Walls which block vision for efficient computation
     //      * @param {boolean} forceUpdateFog  Forcibly update the Fog exploration progress for the current location
     //      */
-    //     Token.prototype.updateToken = function (token, {
+    //     Token.prototype['updateToken'] = function (token, {
     //         defer = false,
     //         deleted = false,
     //         walls = null,
@@ -134,6 +134,7 @@ export class PointOfVision {
     //             });
 
     //             // Add a vision source
+    //             //@ts-ignore
     //             const source = new SightLayerSource({
     //                 x: center.x,
     //                 y: center.y,
@@ -152,7 +153,7 @@ export class PointOfVision {
 
 
     //             try {
-    //                 let sel = this.getFlag(mod, modKey);
+    //                 let sel = this.getFlag(MODULE_NAME, modKey);
     //                 if (sel == 5 || sel == 10) {
     //                     for (let c = sel - 4; c <= sel; c++) {
     //                         center = token.getSightOrigin(c);
@@ -185,6 +186,7 @@ export class PointOfVision {
     //             });
 
     //             // Add a light source
+    //             //@ts-ignore
     //             const source = new SightLayerSource({
     //                 x: center.x,
     //                 y: center.y,
@@ -261,16 +263,18 @@ export class PointOfVision {
             return wrapped(...args);
         }
         if (m) {
-            // p = canvas.grid.getSnappedPosition(m.B.x, m.B.y);
-            // p = {x:this.center.x-this.w,y:this.center.y-this.w};
+            //TODO CHECK OUT
+            p = canvas.grid.getSnappedPosition(m.B.x, m.B.y);
+            p = {x:this.center.x-this.w,y:this.center.y-this.w};
         }
         // return {
         //     x: p.x - this._velocity.sx,
         //     y: p.y - this._velocity.sy
         // };
-        this.center.x = p.x - this._velocity.sx,
-        this.center.y = p.y - this._velocity.sy
-        return wrapped(...args);
+        // this.center.x = p.x - this._velocity.sx,
+        // this.center.y = p.y - this._velocity.sy
+        // return wrapped(...args);
+        return wrapped({x: p.x - this._velocity.sx, y: p.y - this._velocity.sy});
     } // end monkeypatch getSightOrigin
 
     /**
@@ -281,12 +285,15 @@ export class PointOfVision {
      * @param {Array} walls             Optionally pass an array of Walls which block vision for efficient computation
      * @param {boolean} forceUpdateFog  Forcibly update the Fog exploration progress for the current location
      */
-    static tokenPrototypeUpdateTokenHandler = function (wrapped, ...args) {
-        const [token, defer = false, deleted = false, walls = null, forceUpdateFog = false] = args;
+    // static tokenPrototypeUpdateTokenHandler = function (wrapped, ...args) {
+    //     const [token, defer = false, deleted = false, walls = null, forceUpdateFog = false] = args;   
+    static tokenPrototypeUpdateTokenHandler = function (token, {defer = false, deleted = false, walls = null, forceUpdateFog = false}){
+        // let token = getTokenByTokenID(data._id);
 
-        let sourceId = `Token.${token._id}`;
+        let sourceId = `Token.${token.id}`;
         this.sources.vision.delete(sourceId);
-        this.sources.lights.delete(sourceId);
+        this.sources.lights.delete(sourceId);  
+
         if (deleted) return defer ? null : this.update();
         if (token.data.hidden && !game.user.isGM) return;
 
@@ -402,11 +409,13 @@ export class PointOfVision {
         }
 
         // Maybe update
-        if (CONFIG.debug.sight) console.debug(`Updated SightLayer source for ${sourceId}`);
+        if (CONFIG.debug.sight){
+            console.debug(`Updated SightLayer source for ${sourceId}`);
+        }
         if (!defer) {
           this.update();
         }
-        return wrapped(...args);
+        //return wrapped(...args);
     }
 
     static renderTokenConfig(tokenconfig) {

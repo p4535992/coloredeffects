@@ -33,12 +33,6 @@ export let readyHooks = async () => {
     libWrapper.register(MODULE_NAME, 'CanvasAnimation.animateLinear', NoTokenAnimation.canvasAnimationAnimateLinearHandler, 'WRAPPER');
   }
 
-  if (game.settings.get(MODULE_NAME, "pointOfVisionEnabled")){
-    //PointOfVision.init();
-    libWrapper.register(MODULE_NAME, 'Token.prototype.getSightOrigin', PointOfVision.tokenPrototypeGetSightOriginHandler, 'WRAPPER');
-    //libWrapper.register(MODULE_NAME, 'Token.prototype._onUpdate', PointOfVision.tokenPrototypeUpdateTokenHandler, 'WRAPPER');
-  }
-
   Hooks.on("closeSettingsConfig",  () => {
     if (game.settings.get(MODULE_NAME, "coloredEffectsEnabled")){
       ColoredEffects.closeSettingsConfigHandler()
@@ -89,8 +83,21 @@ export let readyHooks = async () => {
       }
   });
 
+  if (game.settings.get(MODULE_NAME, "pointOfVisionEnabled")){
+		//PointOfVision.init();
+		libWrapper.register(MODULE_NAME, 'Token.prototype.getSightOrigin', PointOfVision.tokenPrototypeGetSightOriginHandler, 'WRAPPER');
+		//libWrapper.register(MODULE_NAME, 'Token.prototype._onUpdate', PointOfVision.tokenPrototypeUpdateTokenHandler, 'WRAPPER');
+	}
+
+	Hooks.on("updateToken", (scene, token, updateData, diff) => {
+		if (game.settings.get(MODULE_NAME, "pointOfVisionEnabled")){
+			PointOfVision.tokenPrototypeUpdateTokenHandler(token, updateData);
+		}
+	});
+
 }
 
 export let initHooks = () => {
   warn("Init Hooks processing");
+
 }
