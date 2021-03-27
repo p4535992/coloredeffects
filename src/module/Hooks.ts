@@ -21,8 +21,6 @@ export let readyHooks = async () => {
 
   }
 
-  //libWrapper.register(MODULE_NAME, 'Token.prototype._onUpdate',  commonTokenOnUpdateHandler, 'WRAPPER');
-
   if (game.settings.get(MODULE_NAME, "aurasEnabled")){
 
     libWrapper.register(MODULE_NAME, 'Token.prototype.draw', Auras.tokenDrawHandler, 'WRAPPER');

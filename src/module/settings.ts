@@ -1,8 +1,13 @@
 import { debug, log, setDebugLevel, warn, i18n } from '../foundryvtt-tokeneffects';
-
+//@ts-ignore
+import ColorSetting from '../../colorsettings/colorSetting.js';
 export const MODULE_NAME = 'foundryvtt-tokeneffects';
 
 export const registerSettings = function () {
+
+  // ================================
+  // COLORED EFFECTS
+  // ================================
 
   game.settings.register(MODULE_NAME, "coloredEffectsEnabled", {
 		name: i18n(MODULE_NAME+".coloredEffectsEnabled.name"),
@@ -13,45 +18,14 @@ export const registerSettings = function () {
 		config: true
 	});
 
-  game.settings.register(MODULE_NAME, "notokenanimEnabled", {
-		name: i18n(MODULE_NAME+".notokenanimEnabled.name"),
-    hint: i18n(MODULE_NAME+".notokenanimEnabled.hint"),
-		default: false,
-		type: Boolean,
-		scope: 'client',
-		config: true
-	});
+  
 
-  game.settings.register(MODULE_NAME, "aurasEnabled", {
-		name: i18n(MODULE_NAME+".aurasEnabled.name"),
-    hint: i18n(MODULE_NAME+".aurasEnabled.hint"),
-		default: false,
-		type: Boolean,
-		scope: 'client',
-		config: true
-	});
-
-  game.settings.register(MODULE_NAME, "sheetToTokenEnabled", {
-		name: i18n(MODULE_NAME+".sheetToTokenEnabled.name"),
-    hint: i18n(MODULE_NAME+".sheetToTokenEnabled.hint"),
-		default: false,
-		type: Boolean,
-		scope: 'world',
-		config: true
-	});
-
-  game.settings.register(MODULE_NAME, "pointOfVisionEnabled", {
-		name: i18n(MODULE_NAME+".pointOfVisionEnabled.name"),
-    hint: i18n(MODULE_NAME+".pointOfVisionEnabled.hint"),
-		default: false,
-		type: Boolean,
-		scope: 'world',
-		config: true
-	});
-
-
-
-  game.settings.register(MODULE_NAME, "overlayColor", {
+  //game.settings.register(MODULE_NAME, "overlayColor", {
+  new ColorSetting(MODULE_NAME, "overlayColor", {
+    label: "Pick color",
+    restricted: false,
+    defaultColor: hexToRGBAString(0x43DFDF, 1),
+    
     name: i18n(MODULE_NAME+".overlayColor.name"),
     hint: i18n(MODULE_NAME+".overlayColor.hint"),
     scope: "world",
@@ -74,7 +48,12 @@ export const registerSettings = function () {
     default: 0.8
   });
 
-  game.settings.register(MODULE_NAME, "statusBackgroundColor", {
+  //game.settings.register(MODULE_NAME, "statusBackgroundColor", {
+  new ColorSetting(MODULE_NAME, "statusBackgroundColor", {
+    label: "Pick color",
+    restricted: false,
+    defaultColor: hexToRGBAString(0x43DFDF, 1),
+
     name: i18n(MODULE_NAME+".statusBackgroundColor.name"),
     hint: i18n(MODULE_NAME+".statusBackgroundColor.hint"),
     scope: "world",
@@ -97,7 +76,12 @@ export const registerSettings = function () {
     default: 0.4
   });
 
-  game.settings.register(MODULE_NAME, "statusBorderColor", {
+  //game.settings.register(MODULE_NAME, "statusBorderColor", {
+  new ColorSetting(MODULE_NAME, "statusBorderColor", {
+    label: "Pick color",
+    restricted: false,
+    defaultColor: hexToRGBAString(0x43DFDF, 1),
+
     name: i18n(MODULE_NAME+".statusBorderColor.name"),
     hint: i18n(MODULE_NAME+".statusBorderColor.hint"),
     scope: "world",
@@ -114,7 +98,13 @@ export const registerSettings = function () {
     default: 1,
     type: Number
   });
-  game.settings.register(MODULE_NAME, "statusColor", {
+
+  //game.settings.register(MODULE_NAME, "statusColor", {
+  new ColorSetting(MODULE_NAME, "statusColor", {
+    label: "Pick color",
+    restricted: false,
+    defaultColor: hexToRGBAString(0x43DFDF, 1),
+
     name: i18n(MODULE_NAME+".statusColor.name"),
     hint: i18n(MODULE_NAME+".statusColor.hint"),
     scope: "world",
@@ -135,7 +125,59 @@ export const registerSettings = function () {
         step: 0.01
     },
     default: 1.0
-  });
+  });  
+
+  // ================================
+  // NO TOKEN ANIMATION
+  // ================================
+
+  game.settings.register(MODULE_NAME, "notokenanimEnabled", {
+		name: i18n(MODULE_NAME+".notokenanimEnabled.name"),
+    hint: i18n(MODULE_NAME+".notokenanimEnabled.hint"),
+		default: false,
+		type: Boolean,
+		scope: 'client',
+		config: true
+	});
+
+  // ================================
+  // TOKEN AURAS
+  // ================================
+
+  game.settings.register(MODULE_NAME, "aurasEnabled", {
+		name: i18n(MODULE_NAME+".aurasEnabled.name"),
+    hint: i18n(MODULE_NAME+".aurasEnabled.hint"),
+		default: false,
+		type: Boolean,
+		scope: 'client',
+		config: true
+	});
+
+  // ================================
+  // SHEET TO TOKEN
+  // ================================
+
+  game.settings.register(MODULE_NAME, "sheetToTokenEnabled", {
+		name: i18n(MODULE_NAME+".sheetToTokenEnabled.name"),
+    hint: i18n(MODULE_NAME+".sheetToTokenEnabled.hint"),
+		default: false,
+		type: Boolean,
+		scope: 'world',
+		config: true
+	});
+
+  // ================================
+  // POINT OF VISION
+  // ================================
+
+  game.settings.register(MODULE_NAME, "pointOfVisionEnabled", {
+		name: i18n(MODULE_NAME+".pointOfVisionEnabled.name"),
+    hint: i18n(MODULE_NAME+".pointOfVisionEnabled.hint"),
+		default: false,
+		type: Boolean,
+		scope: 'world',
+		config: true
+	});
 
 }
 

@@ -62,5 +62,13 @@
     "compatibleCoreVersion": "0.7.9",
     "changelog": "https://raw.githubusercontent.com/p4535992/coloredeffects/master/changelog.md",
     "bugs": "https://github.com/p4535992/coloredeffects/issues",
-    "allowBugReporter": true
+    "allowBugReporter": true,
+    "dependencies": [
+      {
+        "name": "colorsettings"
+      },
+      {
+        "name": "lib-wrapper"
+      }
+    ]
 }
