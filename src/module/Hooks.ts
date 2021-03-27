@@ -89,7 +89,7 @@ export let readyHooks = async () => {
         SheetToToken.preUpdateTokenHandler(updateData);       
       }
       if (game.settings.get(MODULE_NAME, "pointOfVisionEnabled")){
-        // PointOfVision.preUpdateToken(scene, token, updateData, diff); // TODO TO CHECK
+        PointOfVision.preUpdateToken(scene, token, updateData, diff); // TODO TO CHECK
       }
   });
 
@@ -101,7 +101,7 @@ export let readyHooks = async () => {
 
 	Hooks.on("updateToken", (scene, token, updateData, diff) => {
 		if (game.settings.get(MODULE_NAME, "pointOfVisionEnabled")){
-			// PointOfVision.tokenPrototypeUpdateTokenHandler(token, updateData); // TODO TO CHECK
+			PointOfVision.tokenPrototypeUpdateTokenHandler(token, updateData); // TODO TO CHECK
 		}
     if (game.settings.get(MODULE_NAME, "floatingConditionsEnabled")){
       FloatingConditions.onUpdateToken(scene, token);
@@ -149,7 +149,7 @@ export let initHooks = () => {
   warn("Init Hooks processing");
 
   if (game.settings.get(MODULE_NAME, "pointOfVisionEnabled")){
-    PointOfVision.init();
+    // PointOfVision.init();
   }
   
   if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
