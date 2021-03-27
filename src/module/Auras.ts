@@ -1,3 +1,4 @@
+import { NoTokenAnimation } from "./noTokenAnimation";
 import { MODULE_NAME } from "./settings";
 
 export const Auras = {
@@ -60,86 +61,96 @@ export const Auras = {
 		return String((1e7)+"-"+(1e3)+"-"+(4e3)+"-"+(8e3)+"-"+(1e11))
 			.replace(/[018]/g, (c:any) =>
 				(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
+	},
+
+	// Token.prototype.draw = (function () {
+	tokenDrawHandler : function (wrapped, ...args) {
+		//const cached = Token.prototype.draw;
+		//return function () {
+			//const p = cached.apply(this, arguments);
+			this.auras = this.addChildAt(new PIXI.Container(), 0);
+			//this.drawAuras();
+			//return p;
+			Auras.tokenDrawAurasHandler(this);
+			return wrapped(...args);
+		//};
+	// })();
+	},
+
+	// Token.prototype['drawAuras'] = function () {
+	// tokenDrawAurasHandler : function (wrapped, ...args) {
+	tokenDrawAurasHandler : function (token) {
+		if(!token.auras){
+			token.auras = token.addChildAt(new PIXI.Container(), 0);
+		}
+		//this.auras.removeChildren().forEach(c => c.destroy());
+		token.auras.removeChildren().forEach(c => c.destroy());
+		const auras = Auras.getAllAuras(token).filter(a => a.distance);
+
+		if (auras.length) {
+			//const gfx = this.auras.addChild(new PIXI.Graphics());
+			const gfx = token.auras.addChild(new PIXI.Graphics());
+			const squareGrid = canvas.scene.data.gridType === 1;
+			const dim = canvas.dimensions;
+			const unit = dim.size / dim.distance;
+			const [cx, cy] = [token.w / 2, token.h / 2];
+			const {width, height} = token.data;
+
+			auras.forEach(aura => {
+				let w, h;
+
+				if (aura.square) {
+					w = aura.distance * 2 + (width * dim.distance);
+					h = aura.distance * 2 + (height * dim.distance);
+				} else {
+					[w, h] = [aura.distance, aura.distance];
+
+					if (squareGrid) {
+						w += width * dim.distance / 2;
+						h += height * dim.distance / 2;
+					} else {
+						w += (width - 1) * dim.distance / 2;
+						h += (height - 1) * dim.distance / 2;
+					}
+				}
+
+				w *= unit;
+				h *= unit;
+				gfx.beginFill(colorStringToHex(aura.colour), aura.opacity);
+
+				if (aura.square) {
+					const [x, y] = [cx - w / 2, cy - h / 2];
+					gfx.drawRect(x, y, w, h);
+				} else {
+					gfx.drawEllipse(cx, cy, w, h);
+				}
+
+				gfx.endFill();
+			});
+		}
+		//return wrapped(...args);
+	},
+
+	// Token.prototype['_onUpdate'] = (function () {
+	tokenOnUpdateHandler : function (wrapped, ...args) {
+		//const cached = Token.prototype['_onUpdate'];
+		const [data] = args;
+		//return function (data) {
+		//	cached.apply(this, arguments);
+			const aurasUpdated =
+				data.flags && data.flags[MODULE_NAME]
+				&& ['aura1', 'aura2', 'auras']
+					.some(k => typeof data.flags[MODULE_NAME][k] === 'object');
+
+			if (aurasUpdated) {
+				//this.drawAuras();
+				Auras.tokenDrawAurasHandler(this);
+			}		
+		//};
+		return wrapped(...args);
 	}
+	// })();
 };
 
 // Hooks.on('renderTokenConfig', Auras.onConfigRender);
 
-// Token.prototype.draw = (function () {
-export const tokenDrawHandler = function (wrapped, ...args) {
-	const cached = Token.prototype.draw;
-	return function () {
-		const p = cached.apply(this, arguments);
-		this.auras = this.addChildAt(new PIXI.Container(), 0);
-		this.drawAuras();
-		//return p;
-		return wrapped(...args);
-	};
-// })();
-}
-
-// Token.prototype['drawAuras'] = function () {
-export const tokenDrawAurasHandler = function (wrapped, ...args) {
-	this.auras.removeChildren().forEach(c => c.destroy());
-	const auras = Auras.getAllAuras(this).filter(a => a.distance);
-
-	if (auras.length) {
-		const gfx = this.auras.addChild(new PIXI.Graphics());
-		const squareGrid = canvas.scene.data.gridType === 1;
-		const dim = canvas.dimensions;
-		const unit = dim.size / dim.distance;
-		const [cx, cy] = [this.w / 2, this.h / 2];
-		const {width, height} = this.data;
-
-		auras.forEach(aura => {
-			let w, h;
-
-			if (aura.square) {
-				w = aura.distance * 2 + (width * dim.distance);
-				h = aura.distance * 2 + (height * dim.distance);
-			} else {
-				[w, h] = [aura.distance, aura.distance];
-
-				if (squareGrid) {
-					w += width * dim.distance / 2;
-					h += height * dim.distance / 2;
-				} else {
-					w += (width - 1) * dim.distance / 2;
-					h += (height - 1) * dim.distance / 2;
-				}
-			}
-
-			w *= unit;
-			h *= unit;
-			gfx.beginFill(colorStringToHex(aura.colour), aura.opacity);
-
-			if (aura.square) {
-				const [x, y] = [cx - w / 2, cy - h / 2];
-				gfx.drawRect(x, y, w, h);
-			} else {
-				gfx.drawEllipse(cx, cy, w, h);
-			}
-
-			gfx.endFill();
-		});
-	}
-	return wrapped(...args);
-};
-
-// Token.prototype['_onUpdate'] = (function () {
-export const tokenOnUpdateHandler = function (wrapped, ...args) {
-	const cached = Token.prototype['_onUpdate'];
-	return function (data) {
-	//	cached.apply(this, arguments);
-		const aurasUpdated =
-			data.flags && data.flags[MODULE_NAME]
-			&& ['aura1', 'aura2', 'auras']
-				.some(k => typeof data.flags[MODULE_NAME][k] === 'object');
-
-		if (aurasUpdated) {
-			this.drawAuras();
-		}
-	};
-	return wrapped(...args);
-}
-// })();
