@@ -93,8 +93,8 @@ export let readyHooks = async () => {
   });
 
   if (game.settings.get(MODULE_NAME, "pointOfVisionEnabled")){
-		//PointOfVision.init();
-		libWrapper.register(MODULE_NAME, 'Token.prototype.getSightOrigin', PointOfVision.tokenPrototypeGetSightOriginHandler, 'WRAPPER');
+    // TODO TO CHECK
+		//libWrapper.register(MODULE_NAME, 'Token.prototype.getSightOrigin', PointOfVision.tokenPrototypeGetSightOriginHandler, 'WRAPPER');
 		//libWrapper.register(MODULE_NAME, 'Token.prototype._onUpdate', PointOfVision.tokenPrototypeUpdateTokenHandler, 'WRAPPER');
 	}
 
@@ -135,8 +135,13 @@ export let readyHooks = async () => {
 export let initHooks = () => {
   warn("Init Hooks processing");
 
+  if (game.settings.get(MODULE_NAME, "pointOfVisionEnabled")){
+    PointOfVision.init();
+  }
+  
   if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
     TokenFactions.onInit();
   }
+
 
 }

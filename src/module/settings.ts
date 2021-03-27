@@ -170,14 +170,14 @@ export const registerSettings = function () {
   // POINT OF VISION (STILL NEED DEVELOPING)
   // ================================
 
-  // game.settings.register(MODULE_NAME, "pointOfVisionEnabled", {
-	// 	name: i18n(MODULE_NAME+".pointOfVisionEnabled.name"),
-  //   hint: i18n(MODULE_NAME+".pointOfVisionEnabled.hint"),
-	// 	default: false,
-	// 	type: Boolean,
-	// 	scope: 'world',
-	// 	config: true
-	// });
+  game.settings.register(MODULE_NAME, "pointOfVisionEnabled", {
+		name: i18n(MODULE_NAME+".pointOfVisionEnabled.name"),
+    hint: i18n(MODULE_NAME+".pointOfVisionEnabled.hint"),
+		default: false,
+		type: Boolean,
+		scope: 'world',
+		config: true
+	});
 
   // ================================
   // Token Vision Animation

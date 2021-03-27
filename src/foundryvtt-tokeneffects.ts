@@ -47,11 +47,14 @@ export let setDebugLevel = (debugText: string) => {
 Hooks.once('init', async () => {
 	console.log(`${MODULE_NAME} | Initializing ${MODULE_NAME}`);
 
+	// Register custom module settings
+	registerSettings();
+
 	initHooks();
 	// Assign custom classes and constants here
 
 	// Register custom module settings
-	registerSettings();
+	//registerSettings();
 	//fetchParams();
 
 	// Preload Handlebars templates
