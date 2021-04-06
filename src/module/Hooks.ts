@@ -11,7 +11,7 @@ import { SheetToToken } from "./sheetToToken";
 import { ColoredEffects } from "./coloredEffects";
 import { NoTokenAnimation } from "./noTokenAnimation";
 import { TokenVisionAnimationWorld } from "./tokenVisionAnimationWorld";
-import { TokenFactions, TokenFactiosHelper } from "./tokenFactions";
+// import { TokenFactions, TokenFactiosHelper } from "./tokenFactions";
 import { FloatingConditions } from './floatingConditions';
 
 export let readyHooks = async () => {
@@ -40,9 +40,9 @@ export let readyHooks = async () => {
     if (game.settings.get(MODULE_NAME, "coloredEffectsEnabled")){
       ColoredEffects.closeSettingsConfigHandler()
     }
-    if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
-      TokenFactions.updateTokens(token);
-    }
+    // if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
+    //   TokenFactions.updateTokens(token);
+    // }
    
   });
 
@@ -69,9 +69,9 @@ export let readyHooks = async () => {
     if (game.settings.get(MODULE_NAME, "pointOfVisionEnabled")){
       PointOfVision.renderTokenConfig(config);
     }
-    if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
-      TokenFactions.renderTokenConfig(config, html);
-    }
+    // if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
+    //   TokenFactions.renderTokenConfig(config, html);
+    // }
   });
 
   Hooks.on("renderTokenConfigPF", (config, html) => {
@@ -112,26 +112,26 @@ export let readyHooks = async () => {
     TokenVisionAnimationWorld.readyOnceHandler();
   }
 
-  if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){	
-		libWrapper.register(MODULE_NAME, 'Token.prototype.refresh', TokenFactiosHelper.tokenRefreshHandler, 'WRAPPER');
-	}
+  // if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){	
+	// 	libWrapper.register(MODULE_NAME, 'Token.prototype.refresh', TokenFactiosHelper.tokenRefreshHandler, 'WRAPPER');
+	// }
   
   Hooks.on('renderSettingsConfig', (sheet, html) => {
-    if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
-      TokenFactions.renderSettingsConfig(sheet, html);
-    }
+    // if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
+    //   TokenFactions.renderSettingsConfig(sheet, html);
+    // }
   });
 
   Hooks.on('updateActor', (tokenData) => {
-    if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
-      TokenFactions.updateTokens(tokenData);
-    }
+    // if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
+    //   TokenFactions.updateTokens(tokenData);
+    // }
   });
 
   Hooks.on('updateFolder', (tokenData) => {
-    if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
-      TokenFactions.updateTokens(tokenData);
-    }
+    // if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
+    //   TokenFactions.updateTokens(tokenData);
+    // }
   });
 
   Hooks.on('createToken', (scene, tokenData) => {
@@ -152,9 +152,9 @@ export let initHooks = () => {
     // PointOfVision.init();
   }
   
-  if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
-    TokenFactions.onInit();
-  }
+  // if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
+  //   TokenFactions.onInit();
+  // }
 
   if (game.settings.get(MODULE_NAME, "floatingConditionsEnabled")){
     FloatingConditions.onInit();
