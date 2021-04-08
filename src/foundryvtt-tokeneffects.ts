@@ -16,7 +16,7 @@ import { registerSettings } from './module/settings';
 import { preloadTemplates } from './module/preloadTemplates';
 import { MODULE_NAME } from './module/settings';
 import { initHooks, readyHooks } from './module/Hooks';
-import { installedModules, setupModules } from './module/setupModules';
+// import { installedModules, setupModules } from './module/setupModules';
 import { PointOfVision } from './module/point-of-vision';
 import {libWrapper} from './module/libs/shim.js'
 
@@ -78,7 +78,7 @@ Hooks.once('setup', function () {
 /* When ready							*/
 /* ------------------------------------ */
 Hooks.once('ready', () => {
-	
+
 	// Do anything once the module is ready
 	if (!game.modules.get("lib-wrapper")?.active && game.user.isGM){
    	ui.notifications.error(`The '${MODULE_NAME}' module requires to install and activate the 'libWrapper' module.`);
@@ -104,7 +104,7 @@ Hooks.once('ready', () => {
 	}
 	// if (game.modules.get("token-factions")?.active && game.user.isGM){
 	//   ui.notifications.warn(`The 'token-factions', is not needed anymore just use '${MODULE_NAME}'`);
-	// }	
+	// }
 	readyHooks();
 });
 

@@ -1,10 +1,13 @@
 import { MODULE_NAME } from "./settings";
+import { getCanvas } from './settings';
+
+let canvas = getCanvas();
 
 export const FloatingConditions = (() => {
     /* ---- private methods and fields ---- */
-  
+
     const MODULE = MODULE_NAME;//'floating-conditions';
-  
+
     const ENABLED_CONDITIONS:any[] = [
       'blinded',
       'charmed',
@@ -22,30 +25,30 @@ export const FloatingConditions = (() => {
       'stunned',
       'unconscious',
     ];
-  
+
     const conditionTextures = {};
-  
+
     const tokenFromId = (id) => {
       const tokens = canvas.tokens.placeables;
-  
+
       return tokens.find((token) => token.data._id === id);
     };
-  
+
     const clearFloatingConditions = (token) => {
       if (token.floatingConditions) token.floatingConditions.destroy();
-  
+
       token.floatingConditions = token.addChildAt(
         new PIXI.Container(),
         token.getChildIndex(token.icon) + 1,
       );
     };
-  
+
     const renderFloatingConditions = (token) => {
       const tokenItems = token?.actor?.items || [];
       const conditions = tokenItems
         .filter((item) => item.type === 'condition')
         .map((item) => item.name.toLowerCase());
-  
+
       for (const condition of conditions) {
         if (ENABLED_CONDITIONS.includes(condition)) {
           const image = new PIXI.Sprite(conditionTextures[condition]);
@@ -56,14 +59,14 @@ export const FloatingConditions = (() => {
         }
       }
     };
-  
+
     const drawFloatingConditions = (token) => {
       if (token) {
         clearFloatingConditions(token);
         renderFloatingConditions(token);
       }
     };
-  
+
     const loadTextures = async () => {
       for (const condition of ENABLED_CONDITIONS) {
         conditionTextures[condition] = await loadTexture(
@@ -71,25 +74,25 @@ export const FloatingConditions = (() => {
         );
       }
     };
-  
+
     /* ---- public API ---- */
-  
+
     return class FloatingConditions {
       static async onInit() {
         await loadTextures();
       }
-  
+
       static onCreateToken(scene, tokenData) {
         drawFloatingConditions(tokenFromId(tokenData._id));
       }
-  
+
       static onUpdateToken(scene, tokenData) {
         drawFloatingConditions(tokenFromId(tokenData._id));
       }
     };
   })();
-  
+
 //   Hooks.once('init', FloatingConditions.onInit);
-  
+
 //   Hooks.on('createToken', FloatingConditions.onCreateToken);
 //   Hooks.on('updateToken', FloatingConditions.onUpdateToken);

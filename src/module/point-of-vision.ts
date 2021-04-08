@@ -1,5 +1,8 @@
 import { getTokenByTokenID } from './helper';
 import { MODULE_NAME } from './settings';
+import { getCanvas } from './settings';
+
+let canvas = getCanvas();
 // const mod = 'point-of-vision';
 const modKey = 'pov';
 export class PointOfVision {
@@ -264,7 +267,7 @@ export class PointOfVision {
         }
         if (m) {
             //TODO CHECK OUT
-            p = canvas.grid.getSnappedPosition(m.B.x, m.B.y);
+            p = canvas.grid.getSnappedPosition(m.B.x, m.B.y, null);
             p = {x:this.center.x-this.w,y:this.center.y-this.w};
         }
         // return {
@@ -286,13 +289,13 @@ export class PointOfVision {
      * @param {boolean} forceUpdateFog  Forcibly update the Fog exploration progress for the current location
      */
     // static tokenPrototypeUpdateTokenHandler = function (wrapped, ...args) {
-    //     const [token, defer = false, deleted = false, walls = null, forceUpdateFog = false] = args;   
+    //     const [token, defer = false, deleted = false, walls = null, forceUpdateFog = false] = args;
     static tokenPrototypeUpdateTokenHandler = function (token, {defer = false, deleted = false, walls = null, forceUpdateFog = false}){
         // let token = getTokenByTokenID(data._id);
 
         let sourceId = `Token.${token.id}`;
         this.sources.vision.delete(sourceId);
-        this.sources.lights.delete(sourceId);  
+        this.sources.lights.delete(sourceId);
 
         if (deleted) return defer ? null : this.update();
         if (token.data.hidden && !game.user.isGM) return;

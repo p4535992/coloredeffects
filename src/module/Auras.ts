@@ -1,5 +1,8 @@
 import { NoTokenAnimation } from "./noTokenAnimation";
 import { MODULE_NAME } from "./settings";
+import { getCanvas } from './settings';
+
+let canvas = getCanvas();
 
 export const Auras = {
 	getAllAuras: function (token) {
@@ -145,7 +148,7 @@ export const Auras = {
 			if (aurasUpdated) {
 				//this.drawAuras();
 				Auras.tokenDrawAurasHandler(this);
-			}		
+			}
 		//};
 		return wrapped(...args);
 	}

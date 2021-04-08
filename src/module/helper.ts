@@ -1,3 +1,7 @@
+import { getCanvas } from "./settings";
+
+let canvas = getCanvas();
+
 export function getTokenByTokenID(id) {
     // return await game.scenes.active.data['tokens'].find( x => {return x.id === id});
     return canvas.tokens.placeables.find( x => {return x.id === id});

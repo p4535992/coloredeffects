@@ -1,22 +1,25 @@
 import { MODULE_NAME } from "./settings";
+import { getCanvas } from './settings';
+
+let canvas = getCanvas();
 
 export const ColoredEffects = {
 
    closeSettingsConfigHandler : function(){
-        let ownedTokens = canvas.getLayer("TokenLayer").ownedTokens;
+        let ownedTokens = canvas.getLayer("TokenLayer")['ownedTokens'];
         for (let t of ownedTokens) {
             t.drawEffects();
         }
-    
+
     },
-    
+
     tokenDrawOverlayHandler : async function (wrapped, ...args) {
         const [src, tint] = args;
         if ( !src ){
             return;
         }
-        let overlayAlpha = game.settings.get(MODULE_NAME, "overlayAlpha");
-        let overlayColor = colorStringToHex(game.settings.get(MODULE_NAME, "overlayColor"));
+        let overlayAlpha = <number>game.settings.get(MODULE_NAME, "overlayAlpha");
+        let overlayColor = colorStringToHex(<string>game.settings.get(MODULE_NAME, "overlayColor"));
         const tex = await loadTexture(src);
         const icon = new PIXI.Sprite(tex);
         const size = Math.min(this.w * 0.6, this.h * 0.6);
@@ -32,15 +35,15 @@ export const ColoredEffects = {
         this.effects.addChild(icon);
         return wrapped(...args);
     },
-    
+
     tokenDrawEffectHandler : async function (wrapped, ...args) {
         const [src, i, bg, w, tint] = args;
-        let statusColor = colorStringToHex(game.settings.get(MODULE_NAME, "statusColor"));
+        let statusColor = colorStringToHex(<string>game.settings.get(MODULE_NAME, "statusColor"));
         let statusAlpha = game.settings.get(MODULE_NAME, "statusAlpha");
-        let bgColor = colorStringToHex(game.settings.get(MODULE_NAME, "statusBackgroundColor"));
+        let bgColor = colorStringToHex(<string>game.settings.get(MODULE_NAME, "statusBackgroundColor"));
         let bgAlpha = game.settings.get(MODULE_NAME, "statusBackgroundAlpha");
         let bgBorderWidth = game.settings.get(MODULE_NAME, "statusBorderWidth");
-        let bgBorderColor = colorStringToHex(game.settings.get(MODULE_NAME, "statusBorderColor"));
+        let bgBorderColor = colorStringToHex(<string>game.settings.get(MODULE_NAME, "statusBorderColor"));
         bg.beginFill(bgColor, bgAlpha).lineStyle(bgBorderWidth, bgBorderColor);
         let tex = await loadTexture(src);
         let icon = this.effects.addChild(new PIXI.Sprite(tex));
