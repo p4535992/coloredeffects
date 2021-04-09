@@ -308,6 +308,47 @@ export const registerSettings = function () {
       config: true
     });
 
+    // ===============================
+    // Aplha control
+    // ===============================
+
+    game.settings.register(MODULE_NAME, "alphaControlEnabled", {
+      name: i18n(MODULE_NAME+".alphaControlEnabled.name"),
+      hint: i18n(MODULE_NAME+".alphaControlEnabled.hint"),
+      default: false,
+      type: Boolean,
+      scope: 'world',
+      config: true
+    });
+
+    game.settings.register(MODULE_NAME, "hiddenToken", {
+        name: game.i18n.localize(MODULE_NAME+".alphaControl.settings.hiddenToken.name"),
+        hint: "",
+        scope: "world",
+        config: true,
+        type: Number,
+        default: 0.5,
+        range: {
+            min: 0.1,
+            max: 1.0,
+            step: 0.1
+        }
+    });
+    
+    game.settings.register(MODULE_NAME, "hiddenTile", {
+        name: game.i18n.localize(MODULE_NAME+".alphaControl.settings.hiddenTile.name"),
+        hint: "",
+        scope: "world",
+        config: true,
+        type: Number,
+        default: 0.5,
+        range: {
+            min: 0.1,
+            max: 1.0,
+            step: 0.1
+        }
+    });
+
 }
 
 // function setup(templateSettings) {

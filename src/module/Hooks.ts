@@ -1,7 +1,7 @@
 import { warn, error, debug, i18n } from "../foundryvtt-tokeneffects";
 import { MODULE_NAME } from "./settings";
 
-import {libWrapper} from './libs/shim.js'
+import {libWrapper} from './libs/shim.js';
 //@ts-ignore
 // import { CanvasAnimation } from ''; //TODO CHECK OUT PATH
 import { Auras, tokenDrawHandler, tokenOnUpdateHandler } from "./Auras";
@@ -13,6 +13,7 @@ import { NoTokenAnimation } from "./noTokenAnimation";
 import { TokenVisionAnimationWorld } from "./tokenVisionAnimationWorld";
 // import { TokenFactions, TokenFactiosHelper } from "./tokenFactions";
 import { FloatingConditions } from './floatingConditions';
+import { AlphaControl } from "./alphaControl";
 
 export let readyHooks = async () => {
 
@@ -62,7 +63,7 @@ export let readyHooks = async () => {
   // }
 
 
-  Hooks.on('renderTokenConfig', (config, html) => {
+  Hooks.on('renderTokenConfig', (config, html,data) => {
     if (game.settings.get(MODULE_NAME, "aurasEnabled")){
       Auras.onConfigRender(config, html);
     }
@@ -72,6 +73,9 @@ export let readyHooks = async () => {
     // if (game.settings.get(MODULE_NAME, "tokenFactionsEnabled")){
     //   TokenFactions.renderTokenConfig(config, html);
     // }
+    if (game.settings.get(MODULE_NAME, "alphaControlEnabled")){
+      AlphaControl.injectControlAlphaOptions(config, html,data);
+    }
   });
 
   Hooks.on("renderTokenConfigPF", (config, html) => {
@@ -140,8 +144,17 @@ export let readyHooks = async () => {
     }
   });
  
+  if (game.settings.get(MODULE_NAME, "alphaControlEnabled")){	
+		libWrapper.register(MODULE_NAME, 'Token.prototype.refresh', AlphaControl.tokenPrototypeRefreshHandler, 'WRAPPER');
+    libWrapper.register(MODULE_NAME, 'Tile.prototype.refresh', AlphaControl.tilePrototypeRefreshHanlder, 'WRAPPER');
+    libWrapper.register(MODULE_NAME, 'TileConfig.prototype._onChangeInput', AlphaControl.tileConfigPrototypeOnChangeInputHandler, 'WRAPPER');
+	}
 
-
+  Hooks.on("renderTileConfig", (config, html,data) => {
+    if (game.settings.get(MODULE_NAME, "alphaControlEnabled")){
+      AlphaControl.injectControlAlphaOptions(config, html,data);
+    }
+  });
 
 }
 
@@ -159,6 +172,5 @@ export let initHooks = () => {
   if (game.settings.get(MODULE_NAME, "floatingConditionsEnabled")){
     FloatingConditions.onInit();
   }
-
 
 }

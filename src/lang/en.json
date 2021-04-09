@@ -32,5 +32,16 @@
     "foundryvtt-tokeneffects.tokenFactionsEnabled.name": "Enable/Disable Token Factions Feature",
     "foundryvtt-tokeneffects.tokenFactionsEnabled.hint": "Generate token bases based on token disposition or actor folder color.",
     "foundryvtt-tokeneffects.floatingConditionsEnabled.name": "Enable/Disable Floating Conditions Feature",
-    "foundryvtt-tokeneffects.floatingConditionsEnabled.hint": "For configuring Floating Conditions"
+    "foundryvtt-tokeneffects.floatingConditionsEnabled.hint": "For configuring Floating Conditions",
+    "foundryvtt-tokeneffects.alphaControlEnabled.name": "Enable/Disable Alpha Control Feature",
+    "foundryvtt-tokeneffects.alphaControlEnabled.hint": "For configuring Alpha Control",
+    "foundryvtt-tokeneffects.alphaControl.config-snippet": "Alpha:",
+    "foundryvtt-tokeneffects.alphaControl.settings": {
+        "hiddenToken": {
+            "name": "Alpha value for hidden tokens."
+        },
+        "hiddenTile": {
+            "name": "Alpha value for hidden tiles."
+        }
+    }
 }
