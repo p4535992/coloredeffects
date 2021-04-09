@@ -2,7 +2,6 @@ import { getTokenByTokenID } from './helper';
 import { MODULE_NAME } from './settings';
 import { getCanvas } from './settings';
 
-let canvas = getCanvas();
 // const mod = 'point-of-vision';
 const modKey = 'pov';
 export class PointOfVision {
@@ -64,7 +63,7 @@ export class PointOfVision {
     //         if (!p) return;
 
     //         if (m) {
-    //             // p = canvas.grid.getSnappedPosition(m.B.x, m.B.y);
+    //             // p = getCanvas().grid.getSnappedPosition(m.B.x, m.B.y);
     //             // p = {x:this.center.x-this.w,y:this.center.y-this.w};
     //         }
     //         return {
@@ -96,12 +95,12 @@ export class PointOfVision {
 
     //         // Vision is displayed if the token is controlled, or if it is observed by a player with no tokens controlled
     //         let displayVision = token._controlled;
-    //         if (!displayVision && !game.user.isGM && !canvas.tokens.controlled.length) {
+    //         if (!displayVision && !game.user.isGM && !getCanvas().tokens.controlled.length) {
     //             displayVision = token.actor && token.actor.hasPerm(game.user, "OBSERVER");
     //         }
 
     //         // Take no action for Tokens which are invisible or Tokens that have no sight or light
-    //         const globalLight = canvas.scene.data.globalLight;
+    //         const globalLight = getCanvas().scene.data.globalLight;
     //         let isVisionSource = this.tokenVision && token.hasSight && displayVision;
     //         let isLightSource = token.emitsLight;
 
@@ -110,7 +109,7 @@ export class PointOfVision {
 
     //         // Prepare some common data
     //         var center = token.getSightOrigin();
-    //         const maxR = globalLight ? Math.max(canvas.dimensions.width, canvas.dimensions.height) : null;
+    //         const maxR = globalLight ? Math.max(getCanvas().dimensions.width, getCanvas().dimensions.height) : null;
     //         let [cullMult, cullMin, cullMax] = this._cull;
     //         if (globalLight) cullMin = maxR;
 
@@ -121,7 +120,7 @@ export class PointOfVision {
     //             // Compute vision polygons
     //             let dim = globalLight ? 0 : token.getLightRadius(token.data.dimSight);
     //             const bright = globalLight ? maxR : token.getLightRadius(token.data.brightSight);
-    //             if ((dim === 0) && (bright === 0)) dim = canvas.dimensions.size * 0.6;
+    //             if ((dim === 0) && (bright === 0)) dim = getCanvas().dimensions.size * 0.6;
     //             const radius = Math.max(Math.abs(dim), Math.abs(bright));
     //             const {
     //                 los,
@@ -267,7 +266,7 @@ export class PointOfVision {
         }
         if (m) {
             //TODO CHECK OUT
-            p = canvas.grid.getSnappedPosition(m.B.x, m.B.y, null);
+            p = getCanvas().grid.getSnappedPosition(m.B.x, m.B.y, null);
             p = {x:this.center.x-this.w,y:this.center.y-this.w};
         }
         // return {
@@ -302,12 +301,12 @@ export class PointOfVision {
 
         // Vision is displayed if the token is controlled, or if it is observed by a player with no tokens controlled
         let displayVision = token._controlled;
-        if (!displayVision && !game.user.isGM && !canvas.tokens.controlled.length) {
+        if (!displayVision && !game.user.isGM && !getCanvas().tokens.controlled.length) {
             displayVision = token.actor && token.actor.hasPerm(game.user, "OBSERVER");
         }
 
         // Take no action for Tokens which are invisible or Tokens that have no sight or light
-        const globalLight = canvas.scene.data.globalLight;
+        const globalLight = getCanvas().scene.data.globalLight;
         let isVisionSource = this.tokenVision && token.hasSight && displayVision;
         let isLightSource = token.emitsLight;
 
@@ -316,7 +315,7 @@ export class PointOfVision {
 
         // Prepare some common data
         var center = token.getSightOrigin();
-        const maxR = globalLight ? Math.max(canvas.dimensions.width, canvas.dimensions.height) : null;
+        const maxR = globalLight ? Math.max(getCanvas().dimensions.width, getCanvas().dimensions.height) : null;
         let [cullMult, cullMin, cullMax] = this._cull;
         if (globalLight) cullMin = maxR;
 
@@ -327,7 +326,7 @@ export class PointOfVision {
             // Compute vision polygons
             let dim = globalLight ? 0 : token.getLightRadius(token.data.dimSight);
             const bright = globalLight ? maxR : token.getLightRadius(token.data.brightSight);
-            if ((dim === 0) && (bright === 0)) dim = canvas.dimensions.size * 0.6;
+            if ((dim === 0) && (bright === 0)) dim = getCanvas().dimensions.size * 0.6;
             const radius = Math.max(Math.abs(dim), Math.abs(bright));
             const {
                 los,
@@ -468,7 +467,7 @@ export class PointOfVision {
 // Hooks.on("preUpdateToken", PointOfVision.preUpdateToken);
 
 // export async function getTokenByTokenID(id) {
-//     return canvas.tokens.placeables.find(x => {
+//     return getCanvas().tokens.placeables.find(x => {
 //         return x.id === id
 //     });
 // }

@@ -1,12 +1,10 @@
 import { MODULE_NAME } from "./settings";
 import { getCanvas } from './settings';
 
-let canvas = getCanvas();
-
 export const ColoredEffects = {
 
    closeSettingsConfigHandler : function(){
-        let ownedTokens = canvas.getLayer("TokenLayer")['ownedTokens'];
+        let ownedTokens = getCanvas().getLayer("TokenLayer")['ownedTokens'];
         for (let t of ownedTokens) {
             t.drawEffects();
         }

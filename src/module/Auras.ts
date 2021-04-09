@@ -2,8 +2,6 @@ import { NoTokenAnimation } from "./noTokenAnimation";
 import { MODULE_NAME } from "./settings";
 import { getCanvas } from './settings';
 
-let canvas = getCanvas();
-
 export const Auras = {
 	getAllAuras: function (token) {
 		return Auras.getManualAuras(token).concat(token.getFlag(MODULE_NAME, 'auras') || []);
@@ -93,8 +91,8 @@ export const Auras = {
 		if (auras.length) {
 			//const gfx = this.auras.addChild(new PIXI.Graphics());
 			const gfx = token.auras.addChild(new PIXI.Graphics());
-			const squareGrid = canvas.scene.data.gridType === 1;
-			const dim = canvas.dimensions;
+			const squareGrid = getCanvas().scene.data.gridType === 1;
+			const dim = getCanvas().dimensions;
 			const unit = dim.size / dim.distance;
 			const [cx, cy] = [token.w / 2, token.h / 2];
 			const {width, height} = token.data;

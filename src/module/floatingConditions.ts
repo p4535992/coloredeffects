@@ -1,8 +1,6 @@
 import { MODULE_NAME } from "./settings";
 import { getCanvas } from './settings';
 
-let canvas = getCanvas();
-
 export const FloatingConditions = (() => {
     /* ---- private methods and fields ---- */
 
@@ -29,7 +27,7 @@ export const FloatingConditions = (() => {
     const conditionTextures = {};
 
     const tokenFromId = (id) => {
-      const tokens = canvas.tokens.placeables;
+      const tokens = getCanvas().tokens.placeables;
 
       return tokens.find((token) => token.data._id === id);
     };
@@ -53,8 +51,8 @@ export const FloatingConditions = (() => {
         if (ENABLED_CONDITIONS.includes(condition)) {
           const image = new PIXI.Sprite(conditionTextures[condition]);
           image.anchor.set(0.0, 0.0);
-          image.width = canvas.grid.grid.w;
-          image.height = canvas.grid.grid.h;
+          image.width = getCanvas().grid.grid.w;
+          image.height = getCanvas().grid.grid.h;
           token.floatingConditions.addChild(image);
         }
       }
