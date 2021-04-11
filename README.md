@@ -1,3 +1,5 @@
+![](https://img.shields.io/badge/Foundry-v0.7.9-informational)
+
 # Tokens Effects
 
 There are more than 300 modules in foundry vtt so the scope of this module is to reduce the number of modules on your game and integrate them with each other and put together something that works.
