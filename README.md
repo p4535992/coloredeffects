@@ -12,16 +12,14 @@ This project is born for install on one single module the following modules for 
 - [Sheet To Token](https://gitlab.com/brunhine/foundry-SheetToToken/) ty to [brunhine](https://gitlab.com/brunhine)
 - TO FINISH [Point of Vision](https://github.com/eadorin/point-of-vision) ty to [eadorin](https://github.com/eadorin) (Still not work need more developing)
 - [Token Vision Animation: World Scope](https://gitlab.com/DmitryRomanenko/token-vision-animation-world) ty to [Dmitry](https://gitlab.com/DmitryRomanenko)
-- REMOVED [Token Factions (original)](https://github.com/Voldemalort/token-factions) ty to [Voldemalort](https://github.com/Voldemalort)
-- REMOVED [Token Factions (fork)](https://github.com/erithtotl/token-factions) ty to [erithtotl](https://github.com/erithtotl)
 - [Floating Conditions](https://github.com/Voldemalort/floating-conditions) ty to [Voldemalort](https://github.com/Voldemalort) (Still not work need more developing)
 - [Alpha Control](https://github.com/jessev14/alphaControl) ty to [jessev14](https://github.com/jessev14)
 
-I loved each of the modules mentioned above, but sadly some seem abandoned or incompatible with any of the other 300 foundryvtt modules. I don't want to take any credit. I just took the ideas and the code of the various modules and integrated them together (in particular where it was possible with 'libwrappper'), so that they do not get any conflict and can be disabled from the module settings without having to go to 'module management'.
+**I loved each of the modules mentioned above, but sadly some seem abandoned or incompatible with any of the other 300 foundryvtt modules. I don't want to take any credit. I just took the ideas and the code of the various modules and integrated them together (in particular where it was possible with 'libwrappper'), so that they do not get any conflict and can be disabled from the module settings without having to go to 'module management'.**
 
 ## Note
 
-This is just a personal project so it's likely have some problem with other modules use at your own risk
+**This is just a personal project so it's likely have some problem with other modules use at your own risk**
 
 ## Installation
 
