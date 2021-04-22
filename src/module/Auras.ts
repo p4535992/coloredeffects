@@ -3,13 +3,13 @@ import { MODULE_NAME } from "./settings";
 import { getCanvas } from './settings';
 
 export const Auras = {
-	getAllAuras: function (token) {
-		return Auras.getManualAuras(token).concat(token.getFlag(MODULE_NAME, 'auras') || []);
+	getAllAuras: function (doc) {
+		return Auras.getManualAuras(doc).concat(doc.getFlag(MODULE_NAME, 'auras') || []);
 	},
 
-	getManualAuras: function (token) {
-		let aura1 = token.getFlag(MODULE_NAME, 'aura1');
-		let aura2 = token.getFlag(MODULE_NAME, 'aura2');
+	getManualAuras: function (doc) {
+		let aura1 = doc.getFlag(MODULE_NAME, 'aura1');
+		let aura2 = doc.getFlag(MODULE_NAME, 'aura2');
 		return [aura1 || Auras.newAura(), aura2 || Auras.newAura()];
 	},
 
@@ -86,7 +86,7 @@ export const Auras = {
 		}
 		//this.auras.removeChildren().forEach(c => c.destroy());
 		token.auras.removeChildren().forEach(c => c.destroy());
-		const auras = Auras.getAllAuras(token).filter(a => a.distance);
+		const auras = Auras.getAllAuras(this.document).filter(a => a.distance);
 
 		if (auras.length) {
 			//const gfx = this.auras.addChild(new PIXI.Graphics());
@@ -152,6 +152,3 @@ export const Auras = {
 	}
 	// })();
 };
-
-// Hooks.on('renderTokenConfig', Auras.onConfigRender);
-
