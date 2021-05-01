@@ -18,7 +18,6 @@ import { MODULE_NAME } from './module/settings';
 import { initHooks, readyHooks } from './module/Hooks';
 // import { installedModules, setupModules } from './module/setupModules';
 import { PointOfVision } from './module/point-of-vision';
-import {libWrapper} from './module/libs/shim.js'
 
 export let debugEnabled = 0;
 // 0 = none, warnings = 1, debug = 2, all = 3

@@ -1,10 +1,7 @@
 import { warn, error, debug, i18n } from "../foundryvtt-tokeneffects";
 import { MODULE_NAME } from "./settings";
 
-import {libWrapper} from './libs/shim.js';
-//@ts-ignore
-// import { CanvasAnimation } from ''; //TODO CHECK OUT PATH
-import { Auras, tokenDrawHandler, tokenOnUpdateHandler } from "./Auras";
+import { Auras } from "./Auras";
 import { PointOfVision } from './point-of-vision';
 import { getTokenByTokenID } from './helper';
 import { SheetToToken } from "./sheetToToken";
@@ -19,22 +16,28 @@ export let readyHooks = async () => {
 
   // setup all the hooks
   if (game.settings.get(MODULE_NAME, "coloredEffectsEnabled")){
-
+    //@ts-ignore
     libWrapper.register(MODULE_NAME, 'Token.prototype._drawOverlay', ColoredEffects.tokenDrawOverlayHandler, 'WRAPPER');
+    //@ts-ignore
     libWrapper.register(MODULE_NAME, 'Token.prototype._drawEffect', ColoredEffects.tokenDrawEffectHandler, 'WRAPPER');
 
   }
 
   if (game.settings.get(MODULE_NAME, "aurasEnabled")){
-
+    //@ts-ignore
     libWrapper.register(MODULE_NAME, 'Token.prototype.draw', Auras.tokenDrawHandler, 'WRAPPER');
+    // REMOVED
     //libWrapper.register(MODULE_NAME, 'Token.prototype.drawAuras', Auras.tokenDrawAurasHandler, 'WRAPPER');
+    //@ts-ignore
     libWrapper.register(MODULE_NAME, 'Token.prototype._onUpdate',  Auras.tokenOnUpdateHandler, 'WRAPPER');
 
   }
 
   if (game.settings.get(MODULE_NAME, "notokenanimEnabled")){
-    libWrapper.register(MODULE_NAME, 'CanvasAnimation.animateLinear', NoTokenAnimation.canvasAnimationAnimateLinearHandler, 'WRAPPER');
+    //OLD 0.7.9
+    //libWrapper.register(MODULE_NAME, 'CanvasAnimation.animateLinear', NoTokenAnimation.canvasAnimationAnimateLinearHandler, 'WRAPPER');
+    //@ts-ignore
+    libWrapper.register(MODULE_NAME, 'Token.prototype.animateMovement', NoTokenAnimation.TokenPrototypeAnimateMovementHandler, 'WRAPPER');
   }
 
   Hooks.on("closeSettingsConfig",  (token) => {
@@ -145,8 +148,11 @@ export let readyHooks = async () => {
   });
  
   if (game.settings.get(MODULE_NAME, "alphaControlEnabled")){	
-		libWrapper.register(MODULE_NAME, 'Token.prototype.refresh', AlphaControl.tokenPrototypeRefreshHandler, 'WRAPPER');
+		//@ts-ignore
+    libWrapper.register(MODULE_NAME, 'Token.prototype.refresh', AlphaControl.tokenPrototypeRefreshHandler, 'WRAPPER');
+    //@ts-ignore
     libWrapper.register(MODULE_NAME, 'Tile.prototype.refresh', AlphaControl.tilePrototypeRefreshHanlder, 'WRAPPER');
+    //@ts-ignore
     libWrapper.register(MODULE_NAME, 'TileConfig.prototype._onChangeInput', AlphaControl.tileConfigPrototypeOnChangeInputHandler, 'WRAPPER');
 	}
 
